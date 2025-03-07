@@ -1,0 +1,171 @@
+/* Réinitialisation des styles par défaut du navigateur */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Styles pour le body */
+body {
+    height: 100vh;
+    /* Fait en sorte que le body occupe toute la hauteur de l'écran */
+    overflow: hidden;
+    /* Empêche le défilement vertical */
+    display: flex;
+    /* Utilisation de flexbox pour centrer les éléments */
+    justify-content: center;
+    /* Centre le contenu horizontalement */
+    align-items: center;
+    /* Centre le contenu verticalement */
+    background: linear-gradient(to right, #173446, #55593b);
+    /* Dégradé de fond */
+    position: relative;
+    /* Nécessaire pour positionner les éléments enfants en absolu */
+    flex-direction: column;
+    /* Permet d'empiler les éléments verticalement */
+}
+
+/* Conteneur pour l'image avec effet de flou */
+.background_image {
+    position: relative;
+    /* Nécessaire pour positionner les pseudo-éléments (::before et ::after) */
+    width: 100%;
+    /* L'image prend toute la largeur de l'écran */
+    height: 100vh;
+    /* L'image prend toute la hauteur de l'écran */
+    display: flex;
+    /* Flexbox pour centrer l'image */
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+/* Image de fond */
+.background_image img {
+    width: 100%;
+    /* L'image s'étire sur toute la largeur */
+    height: 100vh;
+    /* L'image s'étire sur toute la hauteur */
+    object-fit: cover;
+    /* Assure que l'image couvre tout le conteneur sans déformation */
+    filter: blur(25px); /* Flou au départ */
+    transition: filter 1s ease-out; /* Animation douce pour enlever le flou */
+}
+
+
+/* Ajout d'un effet de flou uniquement sur les côtés de l'image */
+.background_image::before,
+.background_image::after {
+    content: "";
+    /* Obligatoire pour les pseudo-éléments */
+    position: absolute;
+    /* Position absolue par rapport au conteneur */
+    top: 0;
+    /* Aligné en haut du conteneur */
+    width: 15%;
+    /* Largeur du flou (modifiable selon le besoin) */
+    height: 100%;
+    /* Prend toute la hauteur du conteneur */
+    z-index: 2;
+    /* Assure que le flou est au-dessus de l'image */
+    pointer-events: none;
+    /* Empêche l'interaction avec ces éléments */
+}
+
+/* Flou sur le côté gauche */
+.background_image::before {
+    left: 0;
+    /* Positionné à gauche */
+    background: linear-gradient(to right, rgba(23, 52, 70, 0.8), transparent);
+    /* Dégradé du flou */
+    filter: blur(10px);
+    /* Applique un effet de flou */
+}
+
+/* Flou sur le côté droit */
+.background_image::after {
+    right: 0;
+    /* Positionné à droite */
+    background: linear-gradient(to left, #55593b, transparent);
+    /* Dégradé du flou */
+    filter: blur(10px);
+    /* Applique un effet de flou */
+}
+
+/* Contenu ajouté par-dessus l'image */
+.intro {
+    position: absolute;
+    /* Position absolue pour le placer au-dessus de l'image */
+    z-index: 3;
+    /* S'assure que le texte est au-dessus de tout */
+    color: white;
+    /* Couleur du texte */
+    font-size: 24px;
+    /* Taille du texte */
+    text-align: center;
+    /* Centre le texte */
+}
+
+.intro {
+    position: absolute;
+    /* Positionnement par rapport au body */
+    text-align: center;
+    /* Centre le texte */
+    color: white;
+    /* Texte en blanc */
+    z-index: 3;
+    /* Passe au-dessus de l'image */
+    text-shadow: 2px 2px 8px rgba(119, 119, 119, 0.8);
+    /* Ajoute une ombre pour améliorer la lisibilité */
+}
+
+/* Sous-titre */
+.intro h2 {
+    font-size: 1.5rem;
+    font-weight: normal;
+    letter-spacing: 2px;
+    /* Espacement entre les lettres pour un effet stylisé */
+    margin-bottom: 10px;
+}
+
+/* Titre principal */
+.intro h1 {
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+/* Ligne de séparation sous le titre */
+.separator {
+    width: 100px;
+    height: 2px;
+    background-color: gold;
+    /* Couleur dorée pour un effet luxueux */
+    margin: 20px auto;
+}
+
+/* Style du bouton */
+.explore-button {
+    background-color: transparent;
+    /* Fond transparent */
+    color: white;
+    /* Texte blanc */
+    border: 2px solid gold;
+    /* Bordure dorée */
+    padding: 10px 20px;
+    /* Espace intérieur pour un bouton équilibré */
+    font-size: 1.2rem;
+    /* Taille du texte */
+    cursor: pointer;
+    /* Change le curseur au survol */
+    transition: 0.3s;
+    /* Effet fluide lors du hover */
+}
+
+/* Effet au survol du bouton */
+.explore-button:hover {
+    background-color: gold;
+    /* Fond doré */
+    color: rgb(77, 77, 77);
+    /* Texte noir */
+}

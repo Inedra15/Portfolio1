@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>portfolio Adrien Cachoux</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="index.js"></script>
+</head>
+
+<body>
+    <!-- Menu Burger -->
+    <div class="burger-menu">
+        <div class="burger-icon">
+            <img src="image/oeil.png" alt="Cercle décoratif">
+        </div>
+        <nav class="nav-sidebar">
+            <ul>
+                <li><a href="#" data-section="rond">À Propos</a></li>
+                <li><a href="#" data-section="rond2">Projets</a></li>
+                <li><a href="#" data-section="rond3">Compétences</a></li>
+                <li><a href="#" data-section="rond4">CV</a></li>
+                <li><a href="#" data-section="rond5">Contact</a></li>
+            </ul>
+            <div class="stacks-section">
+                <h3>Stacks</h3>
+                <div class="stacks-grid">
+                    <div class="stack-item">
+                        <i class="fab fa-php"></i>
+                        <span>PHP</span>
+                    </div>
+                    <div class="stack-item">
+                        <i class="fab fa-python"></i>
+                        <span>Python</span>
+                    </div>
+                    <div class="stack-item">
+                        <i class="fab fa-cuttlefish"></i>
+                        <span>C</span>
+                    </div>
+                    <div class="stack-item">
+                        <i class="fab fa-java"></i>
+                        <span>Java</span>
+                    </div>
+                    <div class="stack-item">
+                        <i class="fab fa-js"></i>
+                        <span>JavaScript</span>
+                    </div>
+                    <div class="stack-item">
+                        <i class="fas fa-database"></i>
+                        <span>SQL</span>
+                    </div>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="https://github.com/votre-compte" target="_blank" class="social-icon">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/adrien-cachoux-8607b82a0/" target="_blank" class="social-icon">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://flipboard.com/@votre-compte" target="_blank" class="social-icon">
+                    <i class="fab fa-flipboard"></i>
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <div>
+        <div>
+            <div class="image_cercle_intro" id="cercle">
+                <img style="color: red;" src="image/cercle.png" alt="Cercle décoratif">
+            </div>
+            <div class="intro" id="intro">
+                <h2>Portfolio</h2>
+                <h1>Adrien Cachoux</h1>
+                <div class="separator"></div>
+                <button class="explore-button">COMMENCER À EXPLORER</button>
+            </div>
+        </div>
+
+        <div>
+            <div class="background_image">
+                <img src="image/test 3.jpg" alt="Background Image">
+            </div>
+            <div class="div_comp" id="rond">
+                <img class="cercle" src="image/cercle_ecriture.png" alt="">
+                <img class="fond_cercle" src="image/rond_noir.png" alt="">
+                <div class="texte_cercle">A Propos</div>
+            </div>
+
+            <div class="div_comp" id="rond2">
+                <img class="cercle" src="image/cercle_ecriture.png" alt="">
+                <img class="fond_cercle" src="image/rond_noir.png" alt="">
+                <div class="texte_cercle">Projets</div>
+            </div>
+
+            <div class="div_comp" id="rond3">
+                <img class="cercle" src="image/cercle_ecriture.png" alt="">
+                <img class="fond_cercle" src="image/rond_noir.png" alt="">
+                <div class="texte_cercle">Compétences</div>
+            </div>
+
+            <div class="div_comp" id="rond4">
+                <img class="cercle" src="image/cercle_ecriture.png" alt="">
+                <img class="fond_cercle" src="image/rond_noir.png" alt="">
+                <div class="texte_cercle">CV</div>
+            </div>
+
+            <div class="div_comp" id="rond5">
+                <img class="cercle" src="image/cercle_ecriture.png" alt="">
+                <img class="fond_cercle" src="image/rond_noir.png" alt="">
+                <div class="texte_cercle">Contact</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup -->
+    <div class="popup-overlay" id="popup-overlay">
+        <div class="popup-content">
+            <button class="close-popup">&times;</button>
+            <div class="popup-body">
+                <!-- Sections de contenu pour chaque popup -->
+                <div id="about-content" class="popup-section">
+                    <h2>À Propos</h2>
+                    <p>Je suis étudiant en deuxième année de BTS SIO (Services Informatiques aux Organisations), 
+                    spécialité SLAM (Solutions logiciel et application métier).</p>
+                    <p>J'ai toujours eu une attirance pour l'informatique et plus spécialement dans le développement 
+                    informatique. C'est tout naturellement que je me suis tourné vers cette formation, après avoir 
+                    obtenu mon BAC Général spécialité mathématique et physique chimie en 2021 et après 2ans en 
+                    licences Mathématique et informatique appliqué aux sciences humaines et sociales.</p>
+                    <div class="projet-professionnel">
+                        <h3>Projet professionnel</h3>
+                        <p>Professionnellement je souhaite m'orienter vers le métier de développeur web.</p>
+                        <p>Après l'obtention de mon BTS SIO - BAC+2, je souhaiterais poursuivre mon cursus en suivant une formation en BACHELOR - BAC+3 ou d'une licence professionnel dans le domaine du développement informatique, puis par la suite mon objectif est de continuer vers une formation en master-BAC+5.</p>
+                        <p>Je souhaite continuer ma formation par le biais de l'apprentissage en alternance, ce qui me permettra :</p>
+                        <ul>
+                            <li>D'acquérir une expérience professionnelle, et de pouvoir confronter mes connaissances théoriques aux réalités du terrain</li>
+                            <li>Le monde de l'entreprise est toujours en mouvement, l'alternance offre la possibilité de participer à la construction et au développement de nouveaux projets</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="projects-content" class="popup-section">
+                    <h2>Projets</h2>
+                    <div class="projet">
+                        <h3>Stage Mobix</h3>
+                        <p>Stage BTS SIO de 1er année. Stage suivi dans l'entreprise MOBIX au sein du service production informatique.</p>
+                        
+                        <h3>Expériences professionnelles</h3>
+                        <ul>
+                            <li>Opérateur en conditionnement de produits chimiques - Gaches Chimie, Escalquens (2022-2023)</li>
+                            <li>Stage d'observation - Chirurgien-dentiste, Caraman (2021)</li>
+                            <li>Stage d'observation - Institut de recherche Pierre Fabre Médicaments, Castres</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="skills-content" class="popup-section">
+                    <h2>Compétences</h2>
+                    <table class="skills-table">
+                        <thead>
+                            <tr>
+                                <th>Projets</th>
+                                <th>Gérer le patrimoine Informatique</th>
+                                <th>Répondre aux incidents</th>
+                                <th>Développer la présence en ligne</th>
+                                <th>Travailler en mode projet</th>
+                                <th>Mettre à disposition</th>
+                                <th>Développement personnel</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Portfolio</td>
+                                <td><span class="check" data-skill="Gérer le patrimoine Informatique">✓</span></td>
+                                <td><span class="cross">✕</span></td>
+                                <td><span class="check" data-skill="Développer la présence en ligne">✓</span></td>
+                                <td><span class="check" data-skill="Travailler en mode projet">✓</span></td>
+                                <td><span class="check" data-skill="Mettre à disposition">✓</span></td>
+                                <td><span class="check" data-skill="Développement personnel">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td>Stage Mobix</td>
+                                <td><span class="check" data-skill="Gérer le patrimoine Informatique">✓</span></td>
+                                <td><span class="check" data-skill="Répondre aux incidents">✓</span></td>
+                                <td><span class="cross">✕</span></td>
+                                <td><span class="check" data-skill="Travailler en mode projet">✓</span></td>
+                                <td><span class="check" data-skill="Mettre à disposition">✓</span></td>
+                                <td><span class="check" data-skill="Développement personnel">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td>Projet GSB</td>
+                                <td><span class="check" data-skill="Gérer le patrimoine Informatique">✓</span></td>
+                                <td><span class="check" data-skill="Répondre aux incidents">✓</span></td>
+                                <td><span class="check" data-skill="Développer la présence en ligne">✓</span></td>
+                                <td><span class="check" data-skill="Travailler en mode projet">✓</span></td>
+                                <td><span class="check" data-skill="Mettre à disposition">✓</span></td>
+                                <td><span class="check" data-skill="Développement personnel">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td>Projet PPE</td>
+                                <td><span class="check" data-skill="Gérer le patrimoine Informatique">✓</span></td>
+                                <td><span class="cross">✕</span></td>
+                                <td><span class="check" data-skill="Développer la présence en ligne">✓</span></td>
+                                <td><span class="check" data-skill="Travailler en mode projet">✓</span></td>
+                                <td><span class="check" data-skill="Mettre à disposition">✓</span></td>
+                                <td><span class="check" data-skill="Développement personnel">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td>Veille Technologique</td>
+                                <td><span class="check" data-skill="Gérer le patrimoine Informatique">✓</span></td>
+                                <td><span class="cross">✕</span></td>
+                                <td><span class="check" data-skill="Développer la présence en ligne">✓</span></td>
+                                <td><span class="cross">✕</span></td>
+                                <td><span class="cross">✕</span></td>
+                                <td><span class="check" data-skill="Développement personnel">✓</span></td>
+                            </tr>
+                            <tr>
+                                <td>Projet Personnel</td>
+                                <td><span class="check" data-skill="Gérer le patrimoine Informatique">✓</span></td>
+                                <td><span class="cross">✕</span></td>
+                                <td><span class="check" data-skill="Développer la présence en ligne">✓</span></td>
+                                <td><span class="check" data-skill="Travailler en mode projet">✓</span></td>
+                                <td><span class="check" data-skill="Mettre à disposition">✓</span></td>
+                                <td><span class="check" data-skill="Développement personnel">✓</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="skill-image-popup" class="skill-image-popup">
+                        <span class="close-skill-image">&times;</span>
+                        <img id="skill-image" src="" alt="Compétence">
+                    </div>
+                </div>
+
+                <div id="cv-content" class="popup-section">
+                    <h2>CV</h2>
+                    <div class="cv-content">
+                        <div class="cv-preview">
+                            <iframe src="CV_Adrien_Cachoux.pdf" width="100%" height="500px"></iframe>
+                        </div>
+                        <div class="cv-download">
+                            <a href="CV_Adrien_Cachoux.pdf" download target="_blank" class="download-button">
+                                <i class="fas fa-download"></i> Télécharger mon CV
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="contact-content" class="popup-section">
+                    <h2>Contact</h2>
+                    <div class="info-section">
+                        <h3>Informations personnelles</h3>
+                        <ul>
+                            <li>École : Institut Limayrac - Toulouse(31)</li>
+                            <li>Téléphone : 07 81 83 61 74</li>
+                            <li>Email : a.cachoux@gmail.com</li>
+                            <li>Diplôme : Bac générale scientifique</li>
+                        </ul>
+                    </div>
+                    <p>N'hésitez pas à me contacter pour discuter de vos projets :</p>
+                    <ul class="contact-list">
+                        <li>📧 Email : a.cachoux@gmail.com</li>
+                        <li>📱 Téléphone : 07 81 83 61 74</li>
+                        <li>🏫 École : Institut Limayrac - Toulouse(31)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

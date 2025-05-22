@@ -455,6 +455,27 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="veille-techno-section" style="margin-top: 40px;">
+                        <h2 class="veille-title">Veille technologique</h2>
+                        <ul class="veille-list">
+                            <li>
+                                <span class="veille-icn"><i class="fa-solid fa-globe"></i></span>
+                                <a href="https://www.developpez.com/" target="_blank">Developpez.com</a> pour les tutoriels techniques et les actualités sur PHP, SQL, Java, etc.
+                            </li>
+                            <li>
+                                <span class="veille-icn"><i class="fa-brands fa-youtube"></i></span>
+                                Des chaînes YouTube comme <a href="https://www.youtube.com/user/grafikarttv" target="_blank">Grafikart</a> ou <a href="https://www.youtube.com/c/TheNetNinja" target="_blank">The Net Ninja</a> pour apprendre des frameworks comme Laravel ou des techniques modernes de front-end.
+                            </li>
+                            <li>
+                                <span class="veille-icn"><i class="fa-brands fa-firefox-browser"></i></span>
+                                Le site <a href="https://developer.mozilla.org/fr/" target="_blank">MDN Web Docs</a> de Mozilla pour les bases solides en HTML/CSS/JS.
+                            </li>
+                            <li>
+                                <span class="veille-icn"><i class="fa-brands fa-stack-overflow"></i></span>
+                                <a href="https://stackoverflow.com/" target="_blank">Stack Overflow</a> ou <span class="veille-icn"><i class="fa-brands fa-reddit"></i></span> <a href="https://www.reddit.com/r/learnprogramming/" target="_blank">Reddit (r/learnprogramming)</a> pour poser mes questions et comprendre comment d'autres résolvent les mêmes problèmes.
+                            </li>
+                        </ul>
+                    </div>
                     <div id="skill-image-popup" class="skill-image-popup">
                         <span class="close-skill-image">&times;</span>
                         <img id="skill-image" src="" alt="Compétence">
@@ -511,6 +532,76 @@
             </div>
         </div>
     </div>
+
+    <!-- Ajout du style pour la section veille -->
+    <style>
+    .veille-title {
+        color: #FFA500;
+        text-align: center;
+        margin-bottom: 24px;
+        font-size: 2em;
+        letter-spacing: 1px;
+    }
+    .veille-list {
+        list-style: none;
+        padding: 0;
+        max-width: 800px;
+        margin: 0 auto 30px auto;
+    }
+    .veille-list li {
+        display: flex;
+        align-items: center;
+        margin-bottom: 18px;
+        background: rgba(255,165,0,0.07);
+        border-radius: 10px;
+        padding: 16px 22px;
+        font-size: 1.08em;
+        color: white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        transition: background 0.2s;
+    }
+    .veille-list li:hover {
+        background: rgba(255,165,0,0.13);
+    }
+    .veille-list a {
+        color: #FFA500;
+        font-weight: normal;
+        text-decoration: none;
+        transition: color 0.2s;
+        margin: 0 2px;
+    }
+    .veille-list a:hover {
+        color: #FF8C00;
+        text-decoration: underline;
+    }
+    .veille-icn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        min-height: 32px;
+        margin-right: 16px;
+        font-size: 1.6em;
+        color: #FFA500;
+        background: #232323;
+        border-radius: 7px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+    @media (max-width: 600px) {
+        .veille-list li {
+            flex-direction: column;
+            align-items: flex-start;
+            font-size: 1em;
+            padding: 12px 10px;
+        }
+        .veille-icn {
+            margin-bottom: 8px;
+            margin-right: 0;
+        }
+    }
+    </style>
 </body>
 
 </html>

@@ -8,17 +8,17 @@ document.addEventListener("DOMContentLoaded", function () {
     let rond3 = document.getElementById("rond3");
     let rond4 = document.getElementById("rond4");
     let rond5 = document.getElementById("rond5");
-    
+
     // Sélection de tous les cercles et fonds
     let tousLesCercles = document.querySelectorAll(".div_comp .cercle");
     let tousLesFonds = document.querySelectorAll(".div_comp .fond_cercle");
     let tousLesTextes = document.querySelectorAll(".texte_cercle");
-    
+
     // Debug des éléments sélectionnés
     console.log("Nombre de cercles trouvés:", tousLesCercles.length);
     console.log("Nombre de fonds trouvés:", tousLesFonds.length);
     console.log("Nombre de textes trouvés:", tousLesTextes.length);
-    
+
     // Tailles initiales
     const tailleInitialeCercle = 80;
     const tailleInitialeFond = 70;
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
     tousLesCercles.forEach(cercle => cercle.style.transition = "width 0.3s ease");
     tousLesFonds.forEach(fond => fond.style.transition = "width 0.3s ease");
     tousLesTextes.forEach(texte => texte.style.transition = "all 0.3s ease");
-    
+
     // Fonction pour faire apparaître un cercle avec animation
     function apparaitreCercle(element, delai) {
         setTimeout(() => {
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
             element.style.display = "flex";
             element.style.opacity = "0";
             element.style.transform = "scale(0.5)";
-            
+
             // Petit délai pour laisser le navigateur prendre en compte le display: flex
             setTimeout(() => {
                 // Ensuite, on applique l'opacité et l'échelle
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 50);
         }, delai);
     }
-    
+
     button.addEventListener("click", function () {
         // Assurer que l'origine de transformation est bien au centre
         background.style.transformOrigin = "center";
@@ -125,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 burgerIcon.classList.add('active');
                 navSidebar.classList.add('active');
             }, 3000); // Ouvre la nav après 3 secondes (après l'apparition du dernier cercle)
-            }, 1000);
+        }, 1000);
     });
 
     // Sélection des éléments de la popup
@@ -137,91 +137,317 @@ document.addEventListener("DOMContentLoaded", function () {
     // Images pour chaque compétence par projet
     const skillImages = {
         'LinkedIn,CV': {
-            'Organiser son développement professionnel': 'image/competences/linkedin_CV/organiser_developpement'
+            'Organiser son développement professionnel': {
+                path: 'image/competences/linkedin_CV/organiser_developpement',
+                titles: {
+                    'image1': 'Mon profil LinkedIn',
+                    'image2': 'Mon CV'
+                }
+            }
         },
         'CazaFamilia - Système de gestion de restaurant italien': {
-            'Répondre aux incidents': 'image/competences/CazaFamilia/repondre_incidents',
-            'Développer la présence en ligne': 'image/competences/CazaFamilia/developper_en_ligne',
-            'Travailler en mode projet': 'image/competences/CazaFamilia/travailler_projet',
-            'Mettre à disposition': 'image/competences/CazaFamilia/mettre_a_dispo'
+            'Répondre aux incidents': {
+                path: 'image/competences/CazaFamilia/repondre_incidents',
+                titles: {
+                    'image1': 'Issue GitHub',
+                    'image2': 'Votre titre personnalisé pour la deuxième image'
+                }
+            },
+            'Développer la présence en ligne': {
+                path: 'image/competences/CazaFamilia/developper_en_ligne',
+                titles: {
+                    'image1': 'Page d\'accueil du site',
+                    'image2': 'Menu en ligne'
+                }
+            },
+            'Travailler en mode projet': {
+                path: 'image/competences/CazaFamilia/travailler_projet',
+                titles: {
+                    'image1': 'Utilisation de GitHub',
+                    'image2': 'Utilisation de Trello'
+                }
+            },
+            'Mettre à disposition': {
+                path: 'image/competences/CazaFamilia/mettre_a_dispo',
+                titles: {
+                    'image1': 'Site web accueil',
+                    'image2': 'Site web menu',
+                    'image3': 'Toutes les commandes',
+                    'image4': 'Détails des commandes',
+                }
+            },
+            'Organiser son développement professionnel': {
+                path: 'image/competences/CazaFamilia/organiser_developpement',
+                titles: {
+                    'image1': 'Cours PHP',
+                    'image2': 'Cours JAVA'
+                }
+            }
         },
         'Site web M2L': {
-            'Travailler en mode projet': 'image/competences/M2L/travailler_projet',
-            'Mettre à disposition': 'image/competences/M2L/mettre_a_dispo',
-            'Organiser son développement professionnel': 'image/competences/M2L/organiser_developpement'
+            'Travailler en mode projet': {
+                path: 'image/competences/M2L/travailler_projet',
+                titles: {
+                    'image1': 'Utilisation de Google Drive',
+                    'image2': 'Planning des tâches'
+                }
+            },
+            'Mettre à disposition': {
+                path: 'image/competences/M2L/mettre_a_dispo',
+                titles: {
+                    'image1': 'Page d\'accueil du site',
+                    'image2': 'Calendrier des matchs'
+                }
+            },
+            'Organiser son développement professionnel': {
+                path: 'image/competences/M2L/organiser_developpement',
+                titles: {
+                    'image1': 'Cours HTML/CSS',
+                    'image2': 'Rapport de stage'
+                }
+            }
         },
         'AP GLPI': {
-            'Gérer le patrimoine informatique': 'image/competences/apGLPI/gerer_patrimoine'
-        },
-        'Planification d\'un projet via l\'outil Trello': {
-            'Mettre à disposition': 'image/competences/Trello/travailler_projet'
+            'Gérer le patrimoine informatique': {
+                path: 'image/competences/apGLPI/gerer_patrimoine',
+                titles: {
+                    'image1': 'Interface GLPI',
+                    'image2': 'Gestion du parc informatique',
+                    'image3': 'Gestion des comptes utilisateurs',
+                }
+            }
         },
         'Portfolio': {
-            'Organiser son développement professionnel': 'image/competences/Portfolio/organiser_developpement',
-            'Développer la présence en ligne': 'image/competences/Portfolio/developper_en_ligne'
-        },
-        'Machines virtuelles Windows, Windows Server et Linux': {
-            'Répondre aux incidents': 'image/competences/VM/repondre_incidents',
-            'Mettre à disposition': 'image/competences/VM/mettre_a_dispo'
+            'Organiser son développement professionnel': {
+                path: 'image/competences/Portfolio/organiser_developpement',
+                titles: {
+                    'image1': 'Apprentissage herbergement web',
+                    'image2': 'Organisation des compétences'
+                }
+            },
+            'Développer la présence en ligne': {
+                path: 'image/competences/Portfolio/developper_en_ligne',
+                titles: {
+                    'image1': 'Mise en ligne du portfolio',
+                    'image2': 'Interface responsive'
+                }
+            }
         },
         'Site web d\'FAQ': {
-            'Répondre aux incidents': 'image/competences/FAQ/repondre_incidents',
-            'Développer la présence en ligne': 'image/competences/FAQ/developper_en_ligne',
-            'Travailler en mode projet': 'image/competences/FAQ/travailler_projet',
-            'Mettre à disposition': 'image/competences/FAQ/mettre_a_dispo'
+            'Répondre aux incidents': {
+                path: 'image/competences/FAQ/repondre_incidents',
+                titles: {
+                    'image1': 'Issue GitHub',
+                    'image2': 'Système de réponse'
+                }
+            },
+            'Développer la présence en ligne': {
+                path: 'image/competences/FAQ/developper_en_ligne',
+                titles: {
+                    'image1': 'Page d\'accueil FAQ',
+                    'image2': 'Interface utilisateur'
+                }
+            },
+            'Travailler en mode projet': {
+                path: 'image/competences/FAQ/travailler_projet',
+                titles: {
+                    'image1': 'Utilisation de GitHub',
+                    'image2': 'Utilisation de Trello'
+                }
+            },
+            'Mettre à disposition': {
+                path: 'image/competences/FAQ/mettre_a_dispo',
+                titles: {
+                    'image1': 'Page d\'accueil FAQ',
+                    'image2': 'Page de d\'inscription'
+                }
+            },
+            'Organiser son développement professionnel': {
+                path: 'image/competences/FAQ/organiser_developpement',
+                titles: {
+                    'image1': 'Cours PHP',
+                    'image2': 'Rapport de stage'
+                }
+            }
         },
         'Workflow sur la phase de recrutement': {
-            'Gérer le patrimoine informatique': 'image/competences/Gaches Chimie/workflow_recrutement/gerer_patrimoine',
-            'Répondre aux incidents': 'image/competences/Gaches Chimie/workflow_recrutement/repondre_incidents',
-            'Travailler en mode projet': 'image/competences/Gaches Chimie/workflow_recrutement/travailler_projet',
-            'Mettre à disposition': 'image/competences/Gaches Chimie/workflow_recrutement/mettre_a_dispo',
-            'Organiser son développement professionnel': 'image/competences/Gaches Chimie/workflow_recrutement/organiser_developpement'
+            'Gérer le patrimoine informatique': {
+                path: 'image/competences/Gaches Chimie/workflow_recrutement/gerer_patrimoine',
+                titles: {
+                    'image1': 'Création et gestion BDD',
+                    'image2': 'Script de gestions des mails automatiques'
+                }
+            },
+            'Répondre aux incidents': {
+                path: 'image/competences/Gaches Chimie/workflow_recrutement/repondre_incidents',
+                titles: {
+                    'image1': 'Réunion avec les RH',
+                    'image2': 'Réunion avec les RH'
+                }
+            },
+            'Travailler en mode projet': {
+                path: 'image/competences/Gaches Chimie/workflow_recrutement/travailler_projet',
+                titles: {
+                    'image1': 'Réunion avec les RH',
+                    'image2': 'Réunion avec les RH',
+                    'image3': 'Utilisation de GitHub'
+                }
+            },
+            'Mettre à disposition': {
+                path: 'image/competences/Gaches Chimie/workflow_recrutement/mettre_a_dispo',
+                titles: {
+                    'image1': 'Page d\'accueil du site',
+                    'image2': 'Formulaire de demande de recrutement',
+                    'image3': 'Page d\'accueil des candidats',
+                    'image4': 'Formulaire d\'ajout de candidats'
+                }
+            },
+            'Organiser son développement professionnel': {
+                path: 'image/competences/Gaches Chimie/workflow_recrutement/organiser_developpement',
+                titles: {
+                    'image1': 'Apprentissage JavaScript',
+                    'image2': 'Votre titre personnalisé pour la deuxième image'
+                }
+            }
         },
         'Workflow sur la phase de départ': {
-            'Gérer le patrimoine informatique': 'image/competences/Gaches Chimie/Workflow_depart/gerer_patrimoine',
-            'Répondre aux incidents': 'image/competences/Gaches Chimie/Workflow_depart/repondre_incidents',
-            'Travailler en mode projet': 'image/competences/Gaches Chimie/Workflow_depart/travailler_projet',
-            'Mettre à disposition': 'image/competences/Gaches Chimie/Workflow_depart/mettre_a_dispo',
-            'Organiser son développement professionnel': 'image/competences/Gaches Chimie/Workflow_depart/organiser_developpement'
+            'Gérer le patrimoine informatique': {
+                path: 'image/competences/Gaches Chimie/Workflow_depart/gerer_patrimoine',
+                titles: {
+                    'image1': 'Création et gestion BDD',
+                    'image2': 'Script de gestions des mails automatiques'
+                }
+            },
+            'Répondre aux incidents': {
+                path: 'image/competences/Gaches Chimie/Workflow_depart/repondre_incidents',
+                titles: {
+                    'image1': 'Réunion avec les RH',
+                    'image2': 'Réunion avec les RH'
+                }
+            },
+            'Travailler en mode projet': {
+                path: 'image/competences/Gaches Chimie/Workflow_depart/travailler_projet',
+                titles: {
+                    'image1': 'Réunion avec les RH',
+                    'image2': 'Réunion avec les RH',
+                    'image3': 'Utilisation de GitHub'
+                }
+            },
+            'Mettre à disposition': {
+                path: 'image/competences/Gaches Chimie/Workflow_depart/mettre_a_dispo',
+                titles: {
+                    'image1': 'Remise des besoins',
+                    'image2': 'Liste de tous les employer'
+                }
+            },
+            'Organiser son développement professionnel': {
+                path: 'image/competences/Gaches Chimie/Workflow_depart/organiser_developpement',
+                titles: {
+                    'image1': 'Apprentissage JavaScript',
+                    'image2': 'Réunion avec les RH'
+                }
+            }
         },
         // Projets Mobix
         'Tableau prévisionnel de la charge de travail à prévoir en plus par collaborateur': {
-            'Répondre aux incidents': 'image/competences/mobix/Tableau_previsionelle/repondre_incidents',
-            'Travailler en mode projet': 'image/competences/mobix/Tableau_previsionelle/travailler_projet',
-            'Mettre à disposition': 'image/competences/mobix/Tableau_previsionelle/mettre_a_dispo'
+            'Répondre aux incidents': {
+                path: 'image/competences/mobix/Tableau_previsionelle/repondre_incidents',
+                titles: {
+                    'image1':'Tableau prévisionnel - Charge de travail'
+                }
+            },
+            'Travailler en mode projet': {
+                path: 'image/competences/mobix/Tableau_previsionelle/travailler_projet',
+                titles: {
+                    'image1':'Utilisation de l\'application Zoho Analytics'
+                }
+            },
+            'Mettre à disposition': {
+                path: 'image/competences/mobix/Tableau_previsionelle/mettre_a_dispo',
+                titles: {
+                    'image1':'Résultat final'
+                } 
+            }
         },
         'Indicateur de retard de tous les projets ouverts': {
-            'Répondre aux incidents': 'image/competences/mobix/indicateur_retard/repondre_incidents',
-            'Travailler en mode projet': 'image/competences/mobix/indicateur_retard/travailler_projet',
-            'Mettre à disposition': 'image/competences/mobix/indicateur_retard/mettre_a_dispo'
+            'Répondre aux incidents': {
+                path: 'image/competences/mobix/indicateur_retard/repondre_incidents',
+                titles: {
+                    'image1':'Indicateur de retard - Projets'
+                }
+            },
+            'Travailler en mode projet': {
+                path: 'image/competences/mobix/indicateur_retard/travailler_projet',
+                titles: {
+                    'image1':'Utilisation de l\'application Zoho Analytics'
+                } 
+            },
+            'Mettre à disposition': {
+                path: 'image/competences/mobix/indicateur_retard/mettre_a_dispo',
+                titles: {
+                    'image1':'Résultat final'
+                }
+            }
         },
         'Variation des marges des projets': {
-            'Répondre aux incidents': 'image/competences/mobix/variation_marge/repondre_incidents',
-            'Travailler en mode projet': 'image/competences/mobix/variation_marge/travailler_projet',
-            'Mettre à disposition': 'image/competences/mobix/variation_marge/mettre_a_dispo'
+            'Répondre aux incidents': {
+                path: 'image/competences/mobix/variation_marge/repondre_incidents',
+                titles: {
+                    'image1':'Utilisation de l\'application Zoho Analytics'
+                } 
+            },
+            'Travailler en mode projet': {
+                path: 'image/competences/mobix/variation_marge/travailler_projet',
+                titles: {
+                    'image1':'Utilisation de l\'application Zoho Analytics'
+                } 
+            },
+            'Mettre à disposition': {
+                path: 'image/competences/mobix/variation_marge/mettre_a_dispo',
+                titles: {
+                    'image1':'Résultat final'
+                }
+            }
         },
         'Contrats sans paiements effectués': {
-            'Répondre aux incidents': 'image/competences/mobix/contrat_sans_paiement/repondre_incidents',
-            'Travailler en mode projet': 'image/competences/mobix/contrat_sans_paiement/travailler_projet',
-            'Mettre à disposition': 'image/competences/mobix/contrat_sans_paiement/mettre_a_dispo'
+            'Répondre aux incidents': {
+                path: 'image/competences/mobix/contrat_sans_paiement/repondre_incidents',
+                titles: 'Suivi des contrats - Paiements'
+            },
+            'Travailler en mode projet': {
+                path: 'image/competences/mobix/contrat_sans_paiement/travailler_projet',
+                titles: {
+                    'image1':'Utilisation de l\'application Zoho Analytics'
+                } 
+            },
+            'Mettre à disposition': {
+                path: 'image/competences/mobix/contrat_sans_paiement/mettre_a_dispo',
+                titles: {
+                    'image1':'Résultat final'
+                }
+            },
         },
         'Tableau des temps effectués par collaborateur en fonction des objectifs initiaux': {
-            'Répondre aux incidents': 'image/competences/mobix/tableau_temps/repondre_incidents',
-            'Travailler en mode projet': 'image/competences/mobix/tableau_temps/travailler_projet',
-            'Mettre à disposition': 'image/competences/mobix/tableau_temps/mettre_a_dispo'
-        },
-        'Actualisation de la date de paiement des contrats payés mensuellement': {
-            'Répondre aux incidents': 'image/competences/mobix/actualisation_date/repondre_incidents',
-            'Travailler en mode projet': 'image/competences/mobix/actualisation_date/travailler_projet',
-            'Mettre à disposition': 'image/competences/mobix/actualisation_date/mettre_a_dispo'
-        },
-        'Modification fiche devis client en fonction des dates': {
-            'Répondre aux incidents': 'image/competences/mobix/modification_devis/repondre_incidents',
-            'Travailler en mode projet': 'image/competences/mobix/modification_devis/travailler_projet',
-            'Mettre à disposition': 'image/competences/mobix/modification_devis/mettre_a_dispo'
+            'Répondre aux incidents': {
+                path: 'image/competences/mobix/tableau_temps/repondre_incidents',
+                titles: 'Suivi des contrats - Paiements'
+            },
+            'Travailler en mode projet': {
+                path: 'image/competences/mobix/tableau_temps/travailler_projet',
+                titles: {
+                    'image1':'Utilisation de l\'application Zoho Analytics'
+                } 
+            },
+            'Mettre à disposition': {
+                path: 'image/competences/mobix/tableau_temps/mettre_a_dispo',
+                titles: {
+                    'image1':'Résultat final'
+                }
+            },
         }
+
+        
     };
-    
     // Fonction pour ouvrir la popup
     function openPopup(sectionId) {
         // Cacher toutes les sections
@@ -313,60 +539,88 @@ document.addEventListener("DOMContentLoaded", function () {
                 const skill = skillMapping[fullSkill] || fullSkill;
 
                 if (skillImages[projectName] && skillImages[projectName][skill]) {
-                    const imagePath = skillImages[projectName][skill];
+                    const imagePath = skillImages[projectName][skill].path;
                     console.log('Chargement des images pour:', projectName, skill, imagePath); // Debug
-                    
+
                     // Créer un conteneur pour les images et PDFs
                     const imagesContainer = document.createElement('div');
                     imagesContainer.className = 'skill-images-container';
-                    
+
                     let hasContent = false;
-                    
+
                     // Tableau des extensions d'images et PDF possibles
                     const imageExt = ['.png', '.jpg', '.jpeg'];
                     const pdfExt = ['.pdf'];
-                    
+
                     // Essayer de charger jusqu'à 5 images numérotées avec différentes extensions
                     for (let i = 1; i <= 5; i++) {
                         // Vérifier d'abord les images
                         for (const ext of imageExt) {
                             const imgPath = `${imagePath}/image${i}${ext}`;
-                            
+
                             const img = document.createElement('img');
                             img.src = imgPath;
                             img.alt = `Compétence ${i}`;
                             img.dataset.loaded = 'false';
-                            
-                            img.onload = function() {
+
+                            img.onload = function () {
                                 this.dataset.loaded = 'true';
                                 hasContent = true;
-                                imagesContainer.appendChild(this);
+
+                                // Créer le conteneur pour l'image et son titre
+                                const imageContainer = document.createElement('div');
+                                imageContainer.className = 'skill-image-container';
+
+                                // Créer le titre
+                                const title = document.createElement('h3');
+                                title.className = 'skill-image-title';
+
+                                // Utiliser le titre personnalisé pour cette image spécifique
+                                const skillInfo = skillImages[projectName][skill];
+                                // Extraire le nom du fichier (ex: image2.jpg)
+                                const fileName = this.src.split('/').pop();
+                                // Extraire le numéro d'image avec une regex
+                                const match = fileName.match(/^image(\d+)/);
+                                const imageKey = match ? `image${match[1]}` : null;
+
+                                if (skillInfo && skillInfo.titles && imageKey && skillInfo.titles[imageKey]) {
+                                    title.textContent = skillInfo.titles[imageKey];
+                                } else {
+                                    title.textContent = `${projectName} - ${skill}`;
+                                }
+
+                                // Ajouter le titre et l'image au conteneur
+                                imageContainer.appendChild(title);
+                                imageContainer.appendChild(this);
+
+                                // Ajouter le conteneur à la popup
+                                imagesContainer.appendChild(imageContainer);
                             };
-                            
-                            img.onerror = function() {
+
+                            img.onerror = function () {
                                 // Ne rien faire, l'image sera ignorée
                                 this.remove();
                             };
-                            
+
                             // Ajouter temporairement pour déclencher le chargement
                             document.body.appendChild(img);
                             document.body.removeChild(img);
                         }
-                        
+
                         // Vérifier ensuite les PDFs
                         for (const ext of pdfExt) {
                             const pdfPath = `${imagePath}/document${i}${ext}`;
-                            
+
                             // Créer un conteneur pour le PDF avec un bouton pour l'ouvrir
                             const pdfContainer = document.createElement('div');
                             pdfContainer.className = 'pdf-container';
-                            
+
                             const pdfLink = document.createElement('a');
                             pdfLink.href = pdfPath;
                             pdfLink.target = '_blank';
                             pdfLink.textContent = `Voir le document ${i}`;
                             pdfLink.className = 'pdf-link';
-                            
+
                             // Vérifier si le PDF existe
                             fetch(pdfPath, { method: 'HEAD' })
                                 .then(response => {
@@ -374,17 +628,17 @@ document.addEventListener("DOMContentLoaded", function () {
                                         pdfContainer.appendChild(pdfLink);
                                         imagesContainer.appendChild(pdfContainer);
                                         hasContent = true;
-                                        
+
                                         // Ajouter un aperçu du PDF intégré
                                         const pdfPreview = document.createElement('div');
                                         pdfPreview.className = 'pdf-preview';
-                                        
+
                                         const pdfEmbed = document.createElement('iframe');
                                         pdfEmbed.src = pdfPath;
                                         pdfEmbed.width = '100%';
                                         pdfEmbed.height = '300px';
                                         pdfEmbed.frameBorder = '0';
-                                        
+
                                         pdfPreview.appendChild(pdfEmbed);
                                         imagesContainer.appendChild(pdfPreview);
                                     }
@@ -394,7 +648,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 });
                         }
                     }
-                    
+
                     // Ajouter un message si aucun contenu n'a été trouvé
                     setTimeout(() => {
                         if (imagesContainer.children.length === 0) {
@@ -408,12 +662,12 @@ document.addEventListener("DOMContentLoaded", function () {
                             imagesContainer.appendChild(message);
                         }
                     }, 300);
-                    
+
                     // Vider et ajouter le conteneur à la popup
                     skillImagePopup.innerHTML = '';
                     skillImagePopup.appendChild(closeSkillImage);
                     skillImagePopup.appendChild(imagesContainer);
-                    
+
                     // Positionner la popup par rapport à la position de défilement
                     const popupContent = document.querySelector('.popup-content');
                     const scrollTop = popupContent.scrollTop;
@@ -437,17 +691,17 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
     }
-    
+
     // Fonction pour fermer la popup
     function closePopupHandler() {
         popupOverlay.classList.remove("active");
         document.body.style.overflow = ""; // Réactive le défilement
-        
+
         // Ouvrir le menu burger
         burgerIcon.classList.add('active');
         navSidebar.classList.add('active');
     }
-    
+
     // Ajout des événements de fermeture
     closePopup.addEventListener("click", closePopupHandler);
     popupOverlay.addEventListener("click", (e) => {
@@ -455,14 +709,14 @@ document.addEventListener("DOMContentLoaded", function () {
             closePopupHandler();
         }
     });
-    
+
     // Ajout des événements de clic sur les cercles
     [rond, rond2, rond3, rond4, rond5].forEach(element => {
         element.addEventListener("click", () => {
             const sectionId = element.id === 'rond' ? 'about-content' :
-                            element.id === 'rond2' ? 'projects-content' :
-                            element.id === 'rond3' ? 'skills-content' :
-                            element.id === 'rond4' ? 'cv-content' :
+                element.id === 'rond2' ? 'projects-content' :
+                    element.id === 'rond3' ? 'skills-content' :
+                        element.id === 'rond4' ? 'cv-content' :
                             'contact-content';
             openPopup(sectionId);
         });
@@ -485,15 +739,15 @@ document.addEventListener("DOMContentLoaded", function () {
             e.preventDefault();
             const section = e.target.getAttribute('data-section');
             const sectionId = section === 'rond' ? 'about-content' :
-                            section === 'rond2' ? 'projects-content' :
-                            section === 'rond3' ? 'skills-content' :
-                            section === 'rond4' ? 'cv-content' :
+                section === 'rond2' ? 'projects-content' :
+                    section === 'rond3' ? 'skills-content' :
+                        section === 'rond4' ? 'cv-content' :
                             'contact-content';
-            
+
             // Ferme le menu burger
             burgerIcon.classList.remove('active');
             navSidebar.classList.remove('active');
-            
+
             // Ouvre la popup correspondante
             openPopup(sectionId);
         });
@@ -521,7 +775,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
             const formData = {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,

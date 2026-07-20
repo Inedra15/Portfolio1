@@ -90,8 +90,12 @@ body {
 
 .image_cercle_intro img {
     animation: rotation 100s linear infinite; /* Rotation infinie en 10 secondes */
-    width: 1030px; /* Ajuste la taille (modifie selon ton besoin) */
+    width: clamp(220px, 65vw, 1030px);
     height: auto; /* Garde les proportions */
+}
+
+.image_cercle_intro {
+    max-width: 92vw;
 }
 
 .div_comp {
@@ -103,6 +107,11 @@ body {
     left: 40%; /* Position horizontale fixe en viewport width */
     transform: translate(-50%, -50%);
     z-index: 2;
+    /* Taille explicite : ses enfants (cercle/fond_cercle/texte) sont tous
+       en position absolute et ne comptent pas dans son gabarit, sinon la
+       zone réellement cliquable resterait un point de 0×0 px. */
+    width: 135px;
+    height: 135px;
 }
 
 /* Positionnement des autres cercles */
@@ -124,6 +133,10 @@ body {
 #rond5 {
     top: 75%;
     left: 50%;
+}
+
+.menu-stage {
+    position: relative;
 }
 
 @keyframes rotation {
@@ -213,7 +226,7 @@ body {
 }
 /* Sous-titre */
 .intro h2 {
-    font-size: 1.5rem;
+    font-size: clamp(1rem, 3.5vw, 1.5rem);
     font-weight: normal;
     letter-spacing: 2px;
     /* Espacement entre les lettres pour un effet stylisé */
@@ -222,13 +235,14 @@ body {
 
 /* Titre principal */
 .intro h1 {
-    font-size: 4rem;
+    font-size: clamp(2.2rem, 9vw, 4rem);
     font-weight: bold;
+    padding: 0 10px;
 }
 
 /* Ligne de séparation sous le titre */
 .separator {
-    width: 100px;
+    width: clamp(60px, 20vw, 100px);
     height: 2px;
     background-color: rgb(0, 0, 0);
     /* Couleur dorée pour un effet luxueux */
@@ -240,8 +254,8 @@ body {
     background-color: #1a1a1a;
     color: #aa997a;
     border: 3px solid #aa997a;
-    padding: 12px 25px;
-    font-size: 1.3rem;
+    padding: clamp(10px, 2.5vw, 12px) clamp(16px, 5vw, 25px);
+    font-size: clamp(0.95rem, 3vw, 1.3rem);
     font-family: 'Arial', sans-serif;
     font-weight: bold;
     text-transform: uppercase;
@@ -251,7 +265,7 @@ body {
     transition: all 0.3s ease;
     text-align: center;
     display: inline-block;
-    width: 250px;
+    width: min(250px, 80vw);
 }
 
 .explore-button:hover {
@@ -298,7 +312,6 @@ body {
     opacity: 0;
     transition: transform 0.3s ease, opacity 0.3s ease;
     color: white;
-    margin: 0 15%;
 }
 
 .popup-overlay.active .popup-content {
@@ -377,12 +390,22 @@ body {
     text-decoration: underline;
 }
 
+/* Conteneur à défilement horizontal pour le tableau sur petits écrans */
+.table-scroll {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 30px 0;
+    border-radius: 8px;
+}
+
 /* Styles pour le tableau des compétences */
 .skills-table {
     width: 100%;
+    min-width: 760px;
     border-collapse: separate;
     border-spacing: 0;
-    margin: 30px 0;
+    margin: 0;
     background-color: #2a2a2a;
     border-radius: 8px;
     font-size: 0.9em;
@@ -1215,4 +1238,241 @@ body {
     width: 100%;
     font-weight: bold;
     letter-spacing: 0.5px;
+}
+
+/* =========================================================
+   RESPONSIVE — mobile, tablette, desktop, grand écran / TV
+   ========================================================= */
+
+/* Accessibilité : focus clavier visible partout */
+:focus-visible {
+    outline: 2px solid #FFA500;
+    outline-offset: 2px;
+}
+
+/* --- Très grands écrans (TV, moniteurs ultra-wide) ---
+   Le design d'origine est calibré pour ~1600-1900px : au-delà,
+   on recentre la scène dans un cadre pour éviter un rendu trop
+   "étiré" et des cercles de menu trop éloignés les uns des autres. */
+@media (min-width: 1800px) {
+    .menu-stage {
+        max-width: 1800px;
+        margin: 0 auto;
+    }
+}
+
+/* --- Bascule vers une disposition en grille sûre ---
+   En dessous de 1400px de large (laptops, tablettes, mobiles),
+   le positionnement en pourcentages absolus des 5 cercles se
+   chevauche inévitablement (l'écart horizontal entre cercles
+   devient plus petit que leur propre taille). On bascule donc
+   vers une disposition flexible qui s'adapte à n'importe quelle
+   taille sans jamais se chevaucher. */
+@media (max-width: 1400px) {
+    body {
+        overflow-y: auto;
+    }
+
+    .menu-stage {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        /* L'anneau décoratif tourne en continu ; à ~45°, sa boîte
+           englobante (rectangle tourné) dépasse sa largeur au repos
+           d'environ 41% (facteur √2). L'écart doit donc rester
+           supérieur à ~0.45 × taille de l'anneau pour qu'il ne
+           touche jamais son voisin, même au pire moment de la
+           rotation. */
+        gap: max(62px, 4vw);
+        min-height: 100vh;
+        padding: 110px 20px 40px;
+    }
+
+    .background_image {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+    }
+
+    .div_comp,
+    #rond2,
+    #rond3,
+    #rond4,
+    #rond5 {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+    }
+
+    .div_comp {
+        width: 135px;
+        height: 135px;
+    }
+}
+
+/* --- Tablettes / petits laptops : anneau réduit, écart ajusté en conséquence --- */
+@media (max-width: 900px) {
+    .menu-stage {
+        gap: max(52px, 4vw);
+    }
+
+    .div_comp {
+        width: 115px;
+        height: 115px;
+    }
+
+    .cercle {
+        width: 115px;
+    }
+
+    .fond_cercle {
+        width: 72px;
+    }
+
+    .texte_cercle {
+        font-size: 10.5px;
+        width: 62px;
+    }
+
+    .popup-content {
+        width: 94%;
+        padding: 25px 15px;
+    }
+
+    .contact-list,
+    .contact-form-section,
+    .projet,
+    .about-intro,
+    .projet-professionnel,
+    .about-section {
+        margin: 18px 20px;
+    }
+}
+
+/* --- Smartphones --- */
+@media (max-width: 600px) {
+    .menu-stage {
+        gap: max(45px, 4vw);
+        padding: 100px 12px 30px;
+    }
+
+    .div_comp {
+        width: 100px;
+        height: 100px;
+    }
+
+    .cercle {
+        width: 100px;
+    }
+
+    .fond_cercle {
+        width: 65px;
+    }
+
+    .texte_cercle {
+        font-size: 10px;
+        width: 55px;
+    }
+
+    .popup-content {
+        width: 96%;
+        height: 92vh;
+        padding: 20px 10px;
+        border-radius: 10px;
+    }
+
+    .popup-body {
+        margin: 15px 2px;
+    }
+
+    .popup-body h2 {
+        font-size: 20px;
+    }
+
+    .contact-list,
+    .contact-form-section,
+    .projet,
+    .about-intro,
+    .projet-professionnel,
+    .about-section {
+        margin: 14px 8px;
+        padding: 15px;
+    }
+
+    .cv-preview iframe {
+        height: 320px;
+    }
+
+    .skill-images-container img {
+        max-width: 100%;
+    }
+}
+
+/* --- Très petits écrans (petits smartphones) --- */
+@media (max-width: 480px) {
+    .menu-stage {
+        gap: max(38px, 4vw);
+    }
+
+    .div_comp {
+        width: 85px;
+        height: 85px;
+    }
+
+    .cercle {
+        width: 85px;
+    }
+
+    .fond_cercle {
+        width: 55px;
+    }
+
+    .texte_cercle {
+        font-size: 9px;
+        width: 46px;
+    }
+
+    .burger-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .burger-menu {
+        top: 12px;
+        left: 12px;
+    }
+
+    .nav-sidebar {
+        width: min(250px, 82vw);
+        left: -100%;
+        padding: 70px 15px 15px;
+    }
+
+    .nav-sidebar.active {
+        left: 0;
+    }
+
+    .close-popup {
+        font-size: 20px;
+        top: 6px;
+        right: 10px;
+    }
+}
+
+/* --- Écrans très courts (mobiles en paysage) --- */
+@media (max-height: 480px) and (orientation: landscape) {
+    .menu-stage {
+        padding: 90px 20px 20px;
+    }
+
+    .image_cercle_intro img {
+        width: clamp(160px, 40vh, 500px);
+    }
+
+    .intro h1 {
+        font-size: clamp(1.8rem, 6vh, 3rem);
+    }
 }

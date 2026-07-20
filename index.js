@@ -57,10 +57,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Ajout des événements de survol sur tous les cercles
-    tousLesCercles.forEach(cercle => {
-        cercle.addEventListener("mouseenter", agrandirCercles);
-        cercle.addEventListener("mouseleave", reduireCercles);
-    });
+    // (uniquement sur les appareils avec une vraie souris : sur tactile,
+    // l'agrandissement resterait bloqué "actif" après un tap et pourrait
+    // chevaucher les cercles voisins)
+    const supporteHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (supporteHover) {
+        tousLesCercles.forEach(cercle => {
+            cercle.addEventListener("mouseenter", agrandirCercles);
+            cercle.addEventListener("mouseleave", reduireCercles);
+        });
+    }
 
     // Ajout des transitions CSS pour une animation fluide
     tousLesCercles.forEach(cercle => cercle.style.transition = "width 0.3s ease");

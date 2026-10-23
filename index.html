@@ -5,597 +5,579 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#1a1a1a">
-    <title>portfolio Adrien Cachoux</title>
-    <link rel="icon" type="image/png" href="image/oeil.png">
+    <title>Portfolio Adrien Cachoux</title>
+
+    <!-- Référencement (Google) et aperçu lors du partage du lien (LinkedIn, Discord...) -->
+    <meta name="description" content="Portfolio d'Adrien Cachoux, étudiant en Master Expert en systèmes d'information (Institut Limayrac) : projets, compétences, CV et contact.">
+    <meta name="author" content="Adrien Cachoux">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Portfolio Adrien Cachoux">
+    <meta property="og:description" content="Étudiant en Master Expert en systèmes d'information - développement web et applicatif. Projets, compétences et CV.">
+    <meta property="og:locale" content="fr_FR">
+
+    <link rel="icon" type="image/png" href="image/oeil-192.png">
+    <link rel="apple-touch-icon" href="image/oeil-192.png">
+
+    <!-- Application installable : "Ajouter à l'écran d'accueil" sur téléphone -->
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Adrien C.">
+    <meta name="color-scheme" content="dark">
+
+    <!-- Polices : Cinzel (titres, style "Terre du Milieu") + Inter (texte) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="index.js"></script>
+
+    <!-- Préchargement de l'image de fond pour un affichage plus rapide -->
+    <link rel="preload" as="image" href="image/carte.jpg">
+
+    <!-- "defer" : les scripts s'exécutent après la lecture du HTML, sans bloquer l'affichage -->
+    <script src="donnees.js" defer></script>
+    <script src="index.js" defer></script>
+
+    <!-- Données structurées : aident Google à comprendre qui est l'auteur du site -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Adrien Cachoux",
+        "jobTitle": "Étudiant en Master Expert en systèmes d'information",
+        "address": { "@type": "PostalAddress", "addressLocality": "Toulouse", "addressCountry": "FR" },
+        "sameAs": [
+            "https://www.linkedin.com/in/adrien-cachoux-8607b82a0/",
+            "https://github.com/Inedra15"
+        ]
+    }
+    </script>
 </head>
 
 <body>
+    <!-- Lien d'évitement : permet aux utilisateurs clavier d'aller directement au menu -->
+    <a class="skip-link" href="#menu-cercles">Aller au menu</a>
+
     <!-- Menu Burger -->
     <div class="burger-menu">
-        <div class="burger-icon">
-            <img src="image/oeil.png" alt="Cercle décoratif">
-        </div>
-        <nav class="nav-sidebar">
+        <button type="button" class="burger-icon" aria-expanded="false" aria-controls="nav-sidebar" aria-label="Ouvrir le menu">
+            <img src="image/oeil-192.png" alt="" width="80" height="80">
+        </button>
+        <nav class="nav-sidebar" id="nav-sidebar" aria-label="Menu principal">
             <ul>
-                <li><a href="#" data-section="rond">À Propos</a></li>
-                <li><a href="#" data-section="rond2">Projets</a></li>
-                <li><a href="#" data-section="rond3">Compétences</a></li>
-                <li><a href="#" data-section="rond4">CV</a></li>
-                <li><a href="#" data-section="rond5">Contact</a></li>
+                <li><a href="#apropos"><i class="fas fa-user" aria-hidden="true"></i> À propos</a></li>
+                <li><a href="#projets"><i class="fas fa-code" aria-hidden="true"></i> Projets</a></li>
+                <li><a href="#competences"><i class="fas fa-table-cells" aria-hidden="true"></i> Compétences</a></li>
+                <li><a href="#cv"><i class="fas fa-file-lines" aria-hidden="true"></i> CV</a></li>
+                <li><a href="#contact"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a></li>
             </ul>
             <div class="stacks-section">
                 <h3>Stacks</h3>
-                <div class="stacks-grid">
-                    <div class="stack-item">
-                        <i class="fab fa-html5"></i>
-                        <span>HTML</span>
-                    </div>
-                    <div class="stack-item">
-                        <i class="fab fa-css3-alt"></i>
-                        <span>CSS</span>
-                    </div>
-                    <div class="stack-item">
-                        <i class="fab fa-php"></i>
-                        <span>PHP</span>
-                    </div>
-                    <div class="stack-item">
-                        <i class="fab fa-python"></i>
-                        <span>Python</span>
-                    </div>
-                    <div class="stack-item">
-                        <i class="fab fa-cuttlefish"></i>
-                        <span>C</span>
-                    </div>
-                    <div class="stack-item">
-                        <i class="fab fa-java"></i>
-                        <span>Java</span>
-                    </div>
-                    <div class="stack-item">
-                        <i class="fab fa-js"></i>
-                        <span>JavaScript</span>
-                    </div>
-                    <div class="stack-item">
-                        <i class="fas fa-database"></i>
-                        <span>SQL</span>
-                    </div>
-                </div>
+                <ul class="stacks-grid">
+                    <li class="stack-item"><i class="fab fa-html5" aria-hidden="true"></i><span>HTML</span></li>
+                    <li class="stack-item"><i class="fab fa-css3-alt" aria-hidden="true"></i><span>CSS</span></li>
+                    <li class="stack-item"><i class="fab fa-js" aria-hidden="true"></i><span>JavaScript</span></li>
+                    <li class="stack-item"><i class="fab fa-php" aria-hidden="true"></i><span>PHP</span></li>
+                    <li class="stack-item"><i class="fas fa-database" aria-hidden="true"></i><span>SQL</span></li>
+                    <li class="stack-item"><i class="fab fa-java" aria-hidden="true"></i><span>Java</span></li>
+                    <li class="stack-item"><i class="fab fa-python" aria-hidden="true"></i><span>Python</span></li>
+                    <li class="stack-item"><i class="fab fa-cuttlefish" aria-hidden="true"></i><span>C</span></li>
+                    <li class="stack-item"><i class="fab fa-git-alt" aria-hidden="true"></i><span>Git</span></li>
+                    <li class="stack-item"><i class="fab fa-docker" aria-hidden="true"></i><span>Docker</span></li>
+                </ul>
             </div>
             <div class="social-links">
-                <a href="https://github.com/votre-compte" target="_blank" class="social-icon">
-                    <i class="fab fa-github"></i>
+                <a href="https://github.com/Inedra15" target="_blank" rel="noopener" class="social-icon" aria-label="GitHub (nouvel onglet)">
+                    <i class="fab fa-github" aria-hidden="true"></i>
                 </a>
-                <a href="https://www.linkedin.com/in/adrien-cachoux-8607b82a0/" target="_blank" class="social-icon">
-                    <i class="fab fa-linkedin"></i>
+                <a href="https://www.linkedin.com/in/adrien-cachoux-8607b82a0/" target="_blank" rel="noopener" class="social-icon" aria-label="LinkedIn (nouvel onglet)">
+                    <i class="fab fa-linkedin" aria-hidden="true"></i>
                 </a>
-                <a href="https://flipboard.com/@votre-compte" target="_blank" class="social-icon">
-                    <i class="fab fa-flipboard"></i>
+                <a href="mailto:a.cachoux@gmail.com" class="social-icon" aria-label="M'envoyer un email">
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
                 </a>
             </div>
         </nav>
     </div>
 
-    <div>
-        <div>
-            <div class="image_cercle_intro" id="cercle">
-                <img style="color: red;" src="image/cercle.png" alt="Cercle décoratif">
-            </div>
-            <div class="intro" id="intro">
-                <h2>Portfolio</h2>
-                <h1>Adrien Cachoux</h1>
-                <div class="separator"></div>
-                <button class="explore-button">COMMENCER À EXPLORER</button>
-            </div>
+    <main>
+        <!-- Écran d'accueil -->
+        <div class="image_cercle_intro" aria-hidden="true">
+            <img src="image/cercle.png" alt="" width="1024" height="1024">
+        </div>
+        <div class="intro">
+            <p class="intro-sous-titre">Portfolio</p>
+            <h1>Adrien Cachoux</h1>
+            <p class="intro-metier">Master Expert en systèmes d'information · Développeur web</p>
+            <div class="separator"></div>
+            <button type="button" class="explore-button">Commencer à explorer</button>
         </div>
 
-        <div class="menu-stage">
-            <div class="background_image">
-                <img src="image/test 3.jpg" alt="Background Image">
+        <!-- Carte + cercles de navigation -->
+        <nav class="menu-stage" id="menu-cercles" aria-label="Sections du portfolio">
+            <div class="carte">
+                <img src="image/carte.jpg" alt="" fetchpriority="high">
+                <!-- --x / --y : position du lieu sur la carte (en % de sa largeur / hauteur)
+                     --i : ordre d'apparition des cercles (utilisé par l'animation CSS) -->
+                <a class="div_comp" id="rond" href="#apropos" style="--x: 38%; --y: 33%; --i: 0">
+                    <img class="cercle" src="image/anneau-400.png" alt="">
+                    <img class="fond_cercle" src="image/rond_noir.png" alt="">
+                    <span class="texte_cercle">À propos</span>
+                    <span class="lieu">La Comté</span>
+                </a>
+                <a class="div_comp" id="rond2" href="#projets" style="--x: 53%; --y: 29%; --i: 1">
+                    <img class="cercle" src="image/anneau-400.png" alt="">
+                    <img class="fond_cercle" src="image/rond_noir.png" alt="">
+                    <span class="texte_cercle">Projets</span>
+                    <span class="lieu">Fondcombe</span>
+                </a>
+                <a class="div_comp" id="rond3" href="#competences" style="--x: 58%; --y: 48%; --i: 2">
+                    <img class="cercle" src="image/anneau-400.png" alt="">
+                    <img class="fond_cercle" src="image/rond_noir.png" alt="">
+                    <span class="texte_cercle">Compétences</span>
+                    <span class="lieu">Lothlórien</span>
+                </a>
+                <a class="div_comp" id="rond4" href="#cv" style="--x: 53%; --y: 67%; --i: 3">
+                    <img class="cercle" src="image/anneau-400.png" alt="">
+                    <img class="fond_cercle" src="image/rond_noir.png" alt="">
+                    <span class="texte_cercle">CV</span>
+                    <span class="lieu">Edoras</span>
+                </a>
+                <a class="div_comp" id="rond5" href="#contact" style="--x: 65%; --y: 78%; --i: 4">
+                    <img class="cercle" src="image/anneau-400.png" alt="">
+                    <img class="fond_cercle" src="image/rond_noir.png" alt="">
+                    <span class="texte_cercle">Contact</span>
+                    <span class="lieu">Minas Tirith</span>
+                </a>
             </div>
-            <div class="div_comp" id="rond">
-                <img class="cercle" src="image/cercle_ecriture.png" alt="">
-                <img class="fond_cercle" src="image/rond_noir.png" alt="">
-                <div class="texte_cercle">A Propos</div>
-            </div>
+        </nav>
+        <!-- Indication affichée sur mobile quand la carte dépasse de l'écran -->
+        <p class="indice-glisser" aria-hidden="true"><i class="fas fa-hand-pointer"></i> Faites glisser la carte</p>
+    </main>
 
-            <div class="div_comp" id="rond2">
-                <img class="cercle" src="image/cercle_ecriture.png" alt="">
-                <img class="fond_cercle" src="image/rond_noir.png" alt="">
-                <div class="texte_cercle">Projets</div>
-            </div>
+    <!-- Barre de navigation en bas de l'écran : affichée uniquement sur téléphone -->
+    <nav class="barre-mobile" aria-label="Navigation rapide">
+        <a href="#apropos"><i class="fas fa-user" aria-hidden="true"></i><span>À propos</span></a>
+        <a href="#projets"><i class="fas fa-code" aria-hidden="true"></i><span>Projets</span></a>
+        <a href="#competences"><i class="fas fa-table-cells" aria-hidden="true"></i><span>Compétences</span></a>
+        <a href="#cv"><i class="fas fa-file-lines" aria-hidden="true"></i><span>CV</span></a>
+        <a href="#contact"><i class="fas fa-envelope" aria-hidden="true"></i><span>Contact</span></a>
+    </nav>
 
-            <div class="div_comp" id="rond3">
-                <img class="cercle" src="image/cercle_ecriture.png" alt="">
-                <img class="fond_cercle" src="image/rond_noir.png" alt="">
-                <div class="texte_cercle">Compétences</div>
-            </div>
+    <!-- Popup principale : élément <dialog> natif
+         (gère seul la touche Échap, le focus clavier et le fond sombre) -->
+    <dialog id="popup" class="popup-content" aria-label="Contenu du portfolio">
+        <div class="popup-progress" aria-hidden="true"></div>
+        <header class="popup-header">
+            <nav class="popup-onglets" aria-label="Sections">
+                <a href="#apropos" data-section="apropos"><i class="fas fa-user" aria-hidden="true"></i><span>À propos</span></a>
+                <a href="#projets" data-section="projets"><i class="fas fa-code" aria-hidden="true"></i><span>Projets</span></a>
+                <a href="#competences" data-section="competences"><i class="fas fa-table-cells" aria-hidden="true"></i><span>Compétences</span></a>
+                <a href="#cv" data-section="cv"><i class="fas fa-file-lines" aria-hidden="true"></i><span>CV</span></a>
+                <a href="#contact" data-section="contact"><i class="fas fa-envelope" aria-hidden="true"></i><span>Contact</span></a>
+            </nav>
+            <button type="button" class="close-popup" aria-label="Fermer">&times;</button>
+        </header>
 
-            <div class="div_comp" id="rond4">
-                <img class="cercle" src="image/cercle_ecriture.png" alt="">
-                <img class="fond_cercle" src="image/rond_noir.png" alt="">
-                <div class="texte_cercle">CV</div>
-            </div>
+        <div class="popup-body">
 
-            <div class="div_comp" id="rond5">
-                <img class="cercle" src="image/cercle_ecriture.png" alt="">
-                <img class="fond_cercle" src="image/rond_noir.png" alt="">
-                <div class="texte_cercle">Contact</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Popup -->
-    <div class="popup-overlay" id="popup-overlay">
-        <div class="popup-content">
-            <button class="close-popup">&times;</button>
-            <div class="popup-body">
-                <!-- Sections de contenu pour chaque popup -->
-                <div id="about-content" class="popup-section">
-                    <h2>À Propos</h2>
-                    <div class="about-intro">
-                        <p>Je suis étudiant en deuxième année de BTS SIO (Services Informatiques aux Organisations),
-                            spécialité SLAM (Solutions logiciel et application métier).</p>
-                        <p>J'ai toujours eu une attirance pour l'informatique et plus spécialement dans le développement
-                            informatique. C'est tout naturellement que je me suis tourné vers cette formation, après avoir
-                            obtenu mon BAC Général spécialité mathématique et physique chimie en 2021 et après 2ans en
-                            licences Mathématique et informatique appliqué aux sciences humaines et sociales.</p>
-                    </div>
-
-                    <div class="projet-professionnel">
-                        <h3>Projet professionnel</h3>
-                        <p>Professionnellement je souhaite m'orienter vers le métier de développeur web.</p>
-                        <p>Après l'obtention de mon BTS SIO - BAC+2, je souhaiterais poursuivre mon cursus en suivant
-                            une formation en BACHELOR - BAC+3 ou d'une licence professionnel dans le domaine du
-                            développement informatique, puis par la suite mon objectif est de continuer vers une
-                            formation en master-BAC+5.</p>
-                        <p>Je souhaite continuer ma formation par le biais de l'apprentissage en alternance, ce qui me
-                            permettra :</p>
-                        <ul>
-                            <li>D'acquérir une expérience professionnelle, et de pouvoir confronter mes connaissances
-                                théoriques aux réalités du terrain</li>
-                            <li>Le monde de l'entreprise est toujours en mouvement, l'alternance offre la possibilité de
-                                participer à la construction et au développement de nouveaux projets</li>
-                        </ul>
-                    </div>
-
-                    <div class="about-section">
-                        <h3>Parcours scolaire</h3>
-                        <div class="timeline">
-                            <div class="timeline-item">
-                                <div class="timeline-date">2023 - Aujourd'hui</div>
-                                <div class="timeline-content">
-                                    <h4>BTS SIO - option SLAM</h4>
-                                    <p>Institut Limayrac</p>
-                                </div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-date">2021 - 2023</div>
-                                <div class="timeline-content">
-                                    <h4>Licence MIASHS - option santé</h4>
-                                    <p>Aix Marseille université</p>
-                                </div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-date">2018 - 2021</div>
-                                <div class="timeline-content">
-                                    <h4>Bac générale scientifique</h4>
-                                    <p>Lycée Vincent auriol</p>
-                                </div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-date">2014 - 2018</div>
-                                <div class="timeline-content">
-                                    <h4>Collège</h4>
-                                    <p>Collège François Mitterrand</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="about-section">
-                        <h3>Parcours professionnel</h3>
-                        <div class="timeline">
-                            <div class="timeline-item">
-                                <div class="timeline-date">2025 (6 semaines)</div>
-                                <div class="timeline-content">
-                                    <h4>Stage Gaches Chimie</h4>
-                                    <p>Stage BTS SIO de 2ème année.<br>
-                                    Stage suivi dans l'entreprise Gaches Chimie au sein du service informatique.</p>
-                                </div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-date">2024 (6 semaines)</div>
-                                <div class="timeline-content">
-                                    <h4>Stage Mobix</h4>
-                                    <p>Stage BTS SIO de 1ère année.<br>
-                                    Stage suivi dans l'entreprise MOBIX au sein du service production informatique.</p>
-                                </div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-date">2022 - 2023 (2 mois)</div>
-                                <div class="timeline-content">
-                                    <h4>Opérateur en conditionnement de produits chimiques</h4>
-                                    <p>Gaches Chimie, Escalquens</p>
-                                </div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-date">2021 (1 semaine)</div>
-                                <div class="timeline-content">
-                                    <h4>Stage d'observation</h4>
-                                    <p>Chirurgien-dentiste, Caraman</p>
-                                </div>
-                            </div>
-                            <div class="timeline-item">
-                                <div class="timeline-date">2020 (1 semaine)</div>
-                                <div class="timeline-content">
-                                    <h4>Stage d'observation</h4>
-                                    <p>Institut de recherche Pierre Fabre Médicaments, Castres</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <!-- ============ À PROPOS ============ -->
+            <section id="apropos" class="popup-section" hidden>
+                <h2>À propos</h2>
+                <div class="about-intro">
+                    <p>Je suis actuellement étudiant en <strong>Master Expert en systèmes d'information</strong>,
+                        option DSN, à l'Institut Limayrac de Toulouse.</p>
+                    <p>Avant cela, j'ai obtenu dans le même établissement le <strong>Bachelor Systèmes d'information</strong>
+                        (option DSN), après un BTS SIO (Services Informatiques aux Organisations) spécialité SLAM
+                        (Solutions Logicielles et Applications Métiers).</p>
+                    <p>J'ai toujours été attiré par l'informatique, et plus particulièrement par le développement.
+                        C'est donc tout naturellement que je me suis tourné vers cette filière, après avoir
+                        obtenu mon bac général spécialités mathématiques et physique-chimie en 2021, puis suivi deux ans
+                        de licence Mathématiques et informatique appliquées aux sciences humaines et sociales (MIASHS).</p>
                 </div>
 
-                <div id="projects-content" class="popup-section">
-                    <h2>Projets</h2>
-                    
-                    <h3>Projets effectués en cours de formation</h3>
-                    
-                    <div class="projet">
-                        <h3>Site Internet sur le Rugby à 15</h3>
-                        <p>Conception et développement d'un site web informatif dédié au rugby à 15, offrant une plateforme complète pour les passionnés de ce sport. Le site intègre des fonctionnalités permettant aux utilisateurs d'accéder aux actualités du club, au calendrier des matchs, et aux statistiques des joueurs. Développé avec HTML5, CSS3 et JavaScript pour garantir une expérience utilisateur optimale sur tous les appareils.</p>
-                    </div>
-                    
-                    <div class="projet">
-                        <h3>Site Internet d'FAQ</h3>
-                        <p>Développement d'une plateforme interactive de questions-réponses centrée sur les différentes ligues sportives. Cette application web sécurisée intègre un système d'authentification personnalisé, permettant aux utilisateurs de créer un compte et d'accéder à un contenu personnalisé. Utilisation de PHP et MySQL pour la gestion des données utilisateurs et implémentation d'un algorithme de filtrage pour afficher des questions pertinentes basées sur les centres d'intérêt de l'utilisateur.</p>
-                    </div>
-
-                    <div class="projet">
-                        <h3>CazaFamilia - Système de gestion de restaurant italien</h3>
-                        <p><strong>Site web (Front-end) :</strong> Développement d'une plateforme web responsive pour un restaurant italien permettant la découverte du menu, les réservations et commandes en ligne. Interface intuitive développée avec HTML5, CSS3, PHP et JavaScript intégrant un système d'authentification sécurisé.</p>
-                        <p><strong>Application de gestion (Back-end) :</strong> Conception d'une application Java client lourd pour la gestion des commandes, stocks et personnel. Communication en temps réel avec le site web et génération de rapports analytiques pour optimiser les performances du restaurant.</p>
-                    </div>
-                    
-                    <h3>Projets effectués en stage de BTS SIO1</h3>
-                    
-                    <div class="projet">
-                        <h3>Tableau prévisionnel de la charge de travail à prévoir en plus par collaborateur</h3>
-                        <p>Développement d'un outil d'analyse prédictive permettant d'optimiser la gestion des ressources humaines. Cette solution calcule automatiquement la charge de travail additionnelle par collaborateur en fonction des contrats en cours, en intégrant des métriques de performance individuelles. L'application génère des visualisations dynamiques facilitant la prise de décision pour les gestionnaires de projets et contribuant à une meilleure allocation des ressources humaines.</p>
-                    </div>
-                    
-                    <div class="projet">
-                        <h3>Indicateur de retard de tous les projets ouverts</h3>
-                        <p>Conception et implémentation d'un tableau de bord analytique permettant la visualisation en temps réel de l'état d'avancement des projets. Cet outil utilise des histogrammes interactifs pour représenter le temps passé, les tâches accomplies, les délais prévus et les retards potentiels. Développé avec des bibliothèques de visualisation de données modernes, cette solution améliore significativement la capacité de l'équipe à identifier et résoudre les goulots d'étranglement dans la gestion de projets.</p>
-                    </div>
-                    
-                    <div class="projet">
-                        <h3>Variation des marges des projets</h3>
-                        <p>Création d'un système d'analyse financière hebdomadaire visualisant les variations de marges sur l'ensemble du portefeuille de projets. Cette solution intègre des données historiques pour établir des comparaisons pertinentes et identifier les tendances. L'outil permet aux décideurs d'ajuster rapidement leur stratégie commerciale en fonction des performances financières des projets et contribue à l'optimisation continue de la rentabilité.</p>
-                    </div>
-                    
-                    <div class="projet">
-                        <h3>Contrats sans paiements effectués</h3>
-                        <p>Développement d'une interface de suivi financier permettant d'identifier instantanément les contrats signés n'ayant pas encore généré de paiements. Ce tableau de bord intuitif facilite le travail du service comptable en centralisant les informations critiques et en priorisant les actions de recouvrement. L'outil a permis d'améliorer significativement le suivi des créances et d'optimiser la gestion de la trésorerie de l'entreprise.</p>
-                    </div>
-                    
-                    <div class="projet">
-                        <h3>Tableau des temps effectués par collaborateur en fonction des objectifs initiaux</h3>
-                        <p>Conception d'un système d'analyse de performance comparant les heures effectives de production par collaborateur aux objectifs préétablis. Cette solution offre une visibilité précise sur l'allocation du temps de travail et permet d'identifier rapidement les écarts de productivité. Grâce à des indicateurs visuels personnalisables, les responsables d'équipe peuvent désormais optimiser la répartition des tâches et améliorer l'efficacité globale des ressources humaines.</p>
-                    </div>
-                    
-                    <h3>Projets effectués en stage de BTS SIO2 </h3>
-                    
-                    <div class="projet">
-                        <h3>Workflow sur la phase de recrutement</h3>
-                        <p>Développement d'un workflow automatisé pour gérer le processus de recrutement au sein de l'entreprise. Cette solution permet de suivre l'ensemble des étapes du recrutement, de la réception des candidatures jusqu'à l'intégration des nouveaux collaborateurs. Le système intègre des notifications automatiques, des rappels de tâches et un suivi en temps réel de l'avancement des dossiers.</p>
-                    </div>
-                    
-                    <div class="projet">
-                        <h3>Workflow sur la phase de départ</h3>
-                        <p>Conception et implémentation d'un workflow pour gérer le processus de départ des collaborateurs. Cette solution assure un suivi complet des procédures administratives, techniques et organisationnelles liées aux départs. Le système permet de coordonner les différentes étapes (récupération du matériel, désactivation des accès, transfert des responsabilités) tout en garantissant la sécurité des données de l'entreprise.</p>
-                    </div>
-                </div>
-
-                <div id="skills-content" class="popup-section">
-                    <h2>Compétences</h2>
-                    <div class="table-scroll">
-                    <table class="skills-table">
-                        <thead>
-                            <tr>
-                                <th>Projets</th>
-                                <th>Gérer le patrimoine informatique</th>
-                                <th>Répondre aux incidents et aux demandes d'assistance et d'évolution</th>
-                                <th>Développer la présence en ligne de l'organisation</th>
-                                <th>Travailler en mode projet</th>
-                                <th>Mettre à disposition des utilisateurs un service informatique</th>
-                                <th>Organiser son développement professionnel</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="section-header">
-                                <td colspan="7">Réalisation en cours de formation</td>
-                            </tr>
-                            <tr>
-                                <td>LinkedIn,CV</td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="check" data-skill="Organiser son développement professionnel">✓</span></td>
-                            </tr>
-                            <tr>
-                                <td>Site web M2L</td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="check" data-skill="Travailler en mode projet">✓</span></td>
-                                <td><span class="check" data-skill="Mettre à disposition">✓</span></td>
-                                <td><span class="check" data-skill="Organiser son développement professionnel">✓</span></td>
-                            </tr>
-                            <tr>
-                                <td>AP GLPI</td>
-                                <td><span class="check" data-skill="Gérer le patrimoine informatique">✓</span></td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="cross"></span></td>
-                            </tr>
-                            <tr>
-                                <td>Portfolio</td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="check" data-skill="Développer la présence en ligne">✓</span></td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="check" data-skill="Organiser son développement professionnel">✓</span></td>
-                            </tr>
-                            <tr>
-                                <td>Site web d'FAQ</td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="check" data-skill="Répondre aux incidents">✓</span></td>
-                                <td><span class="check" data-skill="Développer la présence en ligne">✓</span></td>
-                                <td><span class="check" data-skill="Travailler en mode projet">✓</span></td>
-                                <td><span class="check" data-skill="Mettre à disposition">✓</span></td>
-                                <td><span class="check" data-skill="Organiser son développement professionnel">✓</span></td>
-                            </tr>
-                            <tr>
-                                <td>CazaFamilia - Système de gestion de restaurant italien</td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="check" data-skill="Répondre aux incidents">✓</span></td>
-                                <td><span class="check" data-skill="Développer la présence en ligne">✓</span></td>
-                                <td><span class="check" data-skill="Travailler en mode projet">✓</span></td>
-                                <td><span class="check" data-skill="Mettre à disposition">✓</span></td>
-                                <td><span class="check" data-skill="Organiser son développement professionnel">✓</span></td>
-                            </tr>
-                            <tr class="section-header">
-                                <td colspan="7">Réalisations en milieu professionnel en cours de première année</td>
-                            </tr>
-                            <tr>
-                                <td>Tableau prévisionnel de la charge de travail à prévoir en plus par collaborateur
-                                </td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="check" data-skill="Répondre aux incidents">✓</span></td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="check" data-skill="Travailler en mode projet">✓</span></td>
-                                <td><span class="check" data-skill="Mettre à disposition">✓</span></td>
-                                <td><span class="cross"></span></td>
-                            </tr>
-                            <tr>
-                                <td>Indicateur de retard de tous les projets ouverts</td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="check" data-skill="Répondre aux incidents">✓</span></td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="check" data-skill="Travailler en mode projet">✓</span></td>
-                                <td><span class="check" data-skill="Mettre à disposition">✓</span></td>
-                                <td><span class="cross"></span></td>
-                            </tr>
-                            <tr>
-                                <td>Variation des marges des projets</td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="check" data-skill="Répondre aux incidents">✓</span></td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="check" data-skill="Travailler en mode projet">✓</span></td>
-                                <td><span class="check" data-skill="Mettre à disposition">✓</span></td>
-                                <td><span class="cross"></span></td>
-                            </tr>
-                            <tr>
-                                <td>Contrats sans paiements effectués</td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="check" data-skill="Répondre aux incidents">✓</span></td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="check" data-skill="Travailler en mode projet">✓</span></td>
-                                <td><span class="check" data-skill="Mettre à disposition">✓</span></td>
-                                <td><span class="cross"></span></td>
-                            </tr>
-                            <tr>
-                                <td>Tableau des temps effectués par collaborateur en fonction des objectifs initiaux
-                                </td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="check" data-skill="Répondre aux incidents">✓</span></td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="check" data-skill="Travailler en mode projet">✓</span></td>
-                                <td><span class="check" data-skill="Mettre à disposition">✓</span></td>
-                                <td><span class="cross"></span></td>
-                            </tr>
-                            
-                            <tr class="section-header">
-                                <td colspan="7">Réalisations en milieu professionnel en cours de seconde année</td>
-                            </tr>
-                            <tr>
-                                <td>Workflow sur la phase de recrutement</td>
-                                <td><span class="check" data-skill="Gérer le patrimoine informatique">✓</span></td>
-                                <td><span class="check" data-skill="Répondre aux incidents">✓</span></td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="check" data-skill="Travailler en mode projet">✓</span></td>
-                                <td><span class="check" data-skill="Mettre à disposition">✓</span></td>
-                                <td><span class="check" data-skill="Organiser son développement professionnel">✓</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Workflow sur la phase de départ </td>
-                                <td><span class="check" data-skill="Gérer le patrimoine informatique">✓</span></td>
-                                <td><span class="check" data-skill="Répondre aux incidents">✓</span></td>
-                                <td><span class="cross"></span></td>
-                                <td><span class="check" data-skill="Travailler en mode projet">✓</span></td>
-                                <td><span class="check" data-skill="Mettre à disposition">✓</span></td>
-                                <td><span class="check" data-skill="Organiser son développement professionnel">✓</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    </div>
-                    <div class="veille-techno-section" style="margin-top: 40px;">
-                        <h2 class="veille-title">Veille technologique</h2>
-                        <ul class="veille-list">
-                            <li>
-                                <span class="veille-icn"><i class="fa-solid fa-globe"></i></span>
-                                <a href="https://www.developpez.com/" target="_blank">Developpez.com</a> pour les tutoriels techniques et les actualités sur PHP, SQL, Java, etc.
-                            </li>
-                            <li>
-                                <span class="veille-icn"><i class="fa-brands fa-youtube"></i></span>
-                                Des chaînes YouTube comme <a href="https://www.youtube.com/user/grafikarttv" target="_blank">Grafikart</a> ou <a href="https://www.youtube.com/c/TheNetNinja" target="_blank">The Net Ninja</a> pour apprendre des frameworks comme Laravel ou des techniques modernes de front-end.
-                            </li>
-                            <li>
-                                <span class="veille-icn"><i class="fa-brands fa-firefox-browser"></i></span>
-                                Le site <a href="https://developer.mozilla.org/fr/" target="_blank">MDN Web Docs</a> de Mozilla pour les bases solides en HTML/CSS/JS.
-                            </li>
-                            <li>
-                                <span class="veille-icn"><i class="fa-brands fa-stack-overflow"></i></span>
-                                <a href="https://stackoverflow.com/" target="_blank">Stack Overflow</a> ou <span class="veille-icn"><i class="fa-brands fa-reddit"></i></span> <a href="https://www.reddit.com/r/learnprogramming/" target="_blank">Reddit (r/learnprogramming)</a> pour poser mes questions et comprendre comment d'autres résolvent les mêmes problèmes.
-                            </li>
-                        </ul>
-                    </div>
-                    <div id="skill-image-popup" class="skill-image-popup">
-                        <span class="close-skill-image">&times;</span>
-                        <img id="skill-image" src="" alt="Compétence">
-                    </div>
-                </div>
-
-
-                <div id="cv-content" class="popup-section">
-                    <h2>CV</h2>
-                    <div class="cv-content">
-                        <div class="cv-preview">
-                            <iframe src="CV_Adrien_Cachoux.pdf" width="100%" height="500px"></iframe>
-                        </div>
-                        <div class="cv-download">
-                            <a href="CV_Adrien_Cachoux.pdf" download target="_blank" class="download-button">
-                                <i class="fas fa-download"></i> Télécharger mon CV
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="contact-content" class="popup-section">
-                    <h2>Contact</h2>
-                    <ul class="contact-list">
-                        <li>📧 Email : a.cachoux@gmail.com</li>
-                        <li>📱 Téléphone : 07 81 83 61 74</li>
-                        <li>🏫 École : Institut Limayrac - Toulouse(31)</li>
+                <div class="projet-professionnel">
+                    <h3>Projet professionnel</h3>
+                    <p>Professionnellement, je souhaite m'orienter vers le métier de développeur web.</p>
+                    <p>Après mon BTS SIO (bac+2) puis mon bachelor (bac+3), je poursuis aujourd'hui mon cursus
+                        en master (bac+5) : l'objectif que je m'étais fixé dès le début de mes études supérieures.</p>
+                    <p>Depuis septembre 2025, je suis en alternance chez <strong>Scutum France</strong>, et j'y
+                        reste pendant toute la durée de mon master. L'alternance me permet :</p>
+                    <ul>
+                        <li>d'acquérir une expérience professionnelle et de confronter mes connaissances
+                            théoriques aux réalités du terrain ;</li>
+                        <li>de participer à la construction et au développement de nouveaux projets, dans un
+                            monde de l'entreprise toujours en mouvement.</li>
                     </ul>
-                    <div class="contact-form-section">
-                        <h3>Envoyez-moi un message</h3>
-                        <form id="contact-form" class="contact-form">
+                </div>
+
+                <div class="about-section">
+                    <h3>Parcours scolaire</h3>
+                    <ol class="timeline">
+                        <li class="timeline-item">
+                            <div class="timeline-date">2026 - Aujourd'hui</div>
+                            <div class="timeline-content">
+                                <h4>Master Expert en systèmes d'information - option DSN</h4>
+                                <p>Institut Limayrac, Toulouse</p>
+                            </div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-date">2025 - 2026</div>
+                            <div class="timeline-content">
+                                <h4>Bachelor Systèmes d'information - option DSN <span class="badge-obtenu">Obtenu</span></h4>
+                                <p>Institut Limayrac, Toulouse</p>
+                            </div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-date">2023 - 2025</div>
+                            <div class="timeline-content">
+                                <h4>BTS SIO - option SLAM</h4>
+                                <p>Institut Limayrac, Toulouse</p>
+                            </div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-date">2021 - 2023</div>
+                            <div class="timeline-content">
+                                <h4>Licence MIASHS - option santé</h4>
+                                <p>Aix-Marseille Université</p>
+                            </div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-date">2018 - 2021</div>
+                            <div class="timeline-content">
+                                <h4>Bac général scientifique</h4>
+                                <p>Lycée Vincent Auriol</p>
+                            </div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-date">2014 - 2018</div>
+                            <div class="timeline-content">
+                                <h4>Collège</h4>
+                                <p>Collège François Mitterrand</p>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="about-section">
+                    <h3>Parcours professionnel</h3>
+                    <ol class="timeline">
+                        <li class="timeline-item">
+                            <div class="timeline-date">Septembre 2025 - Aujourd'hui</div>
+                            <div class="timeline-content">
+                                <h4>Alternance chez Scutum France <span class="badge-obtenu">En cours</span></h4>
+                                <p>Alternance pendant le bachelor puis le master Expert en systèmes d'information.</p>
+                            </div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-date">2025 (6 semaines)</div>
+                            <div class="timeline-content">
+                                <h4>Stage Gaches Chimie</h4>
+                                <p>Stage de 2ème année de BTS SIO, au sein du service informatique.</p>
+                            </div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-date">2024 (6 semaines)</div>
+                            <div class="timeline-content">
+                                <h4>Stage Mobix</h4>
+                                <p>Stage de 1ère année de BTS SIO, au sein du service production informatique.</p>
+                            </div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-date">2022 - 2023 (2 mois)</div>
+                            <div class="timeline-content">
+                                <h4>Opérateur en conditionnement de produits chimiques</h4>
+                                <p>Gaches Chimie, Escalquens</p>
+                            </div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-date">2021 (1 semaine)</div>
+                            <div class="timeline-content">
+                                <h4>Stage d'observation</h4>
+                                <p>Chirurgien-dentiste, Caraman</p>
+                            </div>
+                        </li>
+                        <li class="timeline-item">
+                            <div class="timeline-date">2020 (1 semaine)</div>
+                            <div class="timeline-content">
+                                <h4>Stage d'observation</h4>
+                                <p>Institut de recherche Pierre Fabre Médicaments, Castres</p>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- ============ PROJETS ============ -->
+            <section id="projets" class="popup-section" hidden>
+                <h2>Projets</h2>
+
+                <div class="filtres filtres-projets" role="group" aria-label="Filtrer les projets">
+                    <button type="button" class="filtre actif" data-filtre="" aria-pressed="true">Tous</button>
+                    <button type="button" class="filtre" data-filtre="bachelor" aria-pressed="false">Bachelor · Projet fil rouge</button>
+                    <button type="button" class="filtre" data-filtre="formation" aria-pressed="false">BTS · En formation</button>
+                    <button type="button" class="filtre" data-filtre="stage1" aria-pressed="false">Stage SIO1 · Mobix</button>
+                    <button type="button" class="filtre" data-filtre="stage2" aria-pressed="false">Stage SIO2 · Gaches Chimie</button>
+                </div>
+
+                <div class="groupe-projets" data-categorie="bachelor">
+                    <h3>Projet fil rouge du Bachelor Systèmes d'information</h3>
+                    <div class="grille-projets">
+                        <article class="projet projet-vedette">
+                            <h4>Cyna - plateforme e-commerce de solutions de cybersécurité SaaS</h4>
+                            <p>Projet fil rouge de l'année, réalisé en équipe de trois. Cyna vend des solutions de
+                                sécurité (SOC, EDR, XDR) aux entreprises : nous avons conçu sa plateforme de vente en ligne,
+                                de la note de cadrage jusqu'au déploiement.</p>
+                            <p><strong>Site e-commerce mobile-first :</strong> catalogue, recherche à facettes, panier,
+                                paiement Stripe, abonnements mensuels ou annuels, espace client avec factures PDF,
+                                version français / anglais et accessibilité WCAG 2.1 AA.</p>
+                            <p><strong>Back-office :</strong> connexion avec double authentification (2FA TOTP),
+                                tableau de bord des ventes, gestion des produits, des commandes et des utilisateurs,
+                                complété par une application d'administration Java Swing.</p>
+                            <p><strong>Sécurité et déploiement :</strong> PHP 8.2 sans framework ni dépendance externe,
+                                protection contre les injections SQL, les failles XSS et CSRF, mots de passe chiffrés
+                                (bcrypt), conteneurisation Docker avec HTTPS.</p>
+                            <ul class="tags"><li>PHP 8.2</li><li>MySQL</li><li>JavaScript</li><li>Stripe</li><li>Java Swing</li><li>Docker</li><li>2FA</li></ul>
+                            <a class="lien-projet" href="https://github.com/Inedra15/projet-fils-rouge" target="_blank" rel="noopener">
+                                Voir le code sur GitHub <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="groupe-projets" data-categorie="formation">
+                    <h3>Projets effectués en cours de BTS SIO</h3>
+                    <div class="grille-projets">
+                        <article class="projet">
+                            <h4>Site internet sur le rugby à 15 (M2L)</h4>
+                            <p>Conception et développement d'un site web informatif dédié au rugby à 15. Les utilisateurs
+                                peuvent consulter les actualités du club, le calendrier des matchs et les statistiques
+                                des joueurs, sur ordinateur comme sur mobile.</p>
+                            <ul class="tags"><li>HTML5</li><li>CSS3</li><li>JavaScript</li></ul>
+                        </article>
+
+                        <article class="projet">
+                            <h4>Site internet de FAQ</h4>
+                            <p>Plateforme de questions-réponses sur les différentes ligues sportives, avec un système
+                                d'authentification (création de compte, contenu personnalisé) et un filtrage des
+                                questions selon les centres d'intérêt de l'utilisateur.</p>
+                            <ul class="tags"><li>PHP</li><li>MySQL</li><li>HTML/CSS</li></ul>
+                            <a class="lien-projet" href="https://appfaq.brandonmolina.fr/" target="_blank" rel="noopener">
+                                Voir le site <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+                        </article>
+
+                        <article class="projet">
+                            <h4>CazaFamilia - gestion d'un restaurant italien</h4>
+                            <p><strong>Site web :</strong> plateforme responsive permettant de découvrir le menu, de
+                                réserver et de commander en ligne, avec authentification sécurisée.</p>
+                            <p><strong>Application de gestion :</strong> client lourd Java pour la gestion des commandes,
+                                des stocks et du personnel, connecté à la même base que le site web.</p>
+                            <ul class="tags"><li>PHP</li><li>JavaScript</li><li>Java</li><li>SQL</li></ul>
+                            <a class="lien-projet" href="https://cazafamilia.brandonmolina.fr/" target="_blank" rel="noopener">
+                                Voir le site <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="groupe-projets" data-categorie="stage1">
+                    <h3>Projets effectués en stage de BTS SIO1 (Mobix)</h3>
+                    <div class="grille-projets">
+                        <article class="projet">
+                            <h4>Tableau prévisionnel de la charge de travail supplémentaire par collaborateur</h4>
+                            <p>Outil qui calcule automatiquement la charge de travail additionnelle de chaque
+                                collaborateur en fonction des contrats en cours, avec des visualisations pour aider
+                                les chefs de projet à mieux répartir les ressources.</p>
+                            <ul class="tags"><li>Zoho Analytics</li><li>SQL</li></ul>
+                        </article>
+
+                        <article class="projet">
+                            <h4>Indicateur de retard de tous les projets ouverts</h4>
+                            <p>Tableau de bord présentant, sous forme d'histogrammes, le temps passé, les tâches
+                                accomplies, les délais prévus et les retards, afin d'identifier rapidement les projets
+                                en difficulté.</p>
+                            <ul class="tags"><li>Zoho Analytics</li><li>Data visualisation</li></ul>
+                        </article>
+
+                        <article class="projet">
+                            <h4>Variation des marges des projets</h4>
+                            <p>Analyse hebdomadaire des variations de marge sur l'ensemble des projets, comparée
+                                à l'historique, pour permettre aux décideurs d'ajuster rapidement leur stratégie.</p>
+                            <ul class="tags"><li>Zoho Analytics</li><li>Analyse financière</li></ul>
+                        </article>
+
+                        <article class="projet">
+                            <h4>Contrats sans paiements effectués</h4>
+                            <p>Tableau de bord qui identifie les contrats signés n'ayant pas encore généré de paiement,
+                                pour aider le service comptable à prioriser les relances et suivre la trésorerie.</p>
+                            <ul class="tags"><li>Zoho Analytics</li><li>SQL</li></ul>
+                        </article>
+
+                        <article class="projet">
+                            <h4>Temps effectués par collaborateur selon les objectifs initiaux</h4>
+                            <p>Comparaison des heures réellement produites par chaque collaborateur avec les
+                                objectifs fixés, pour repérer les écarts et améliorer la répartition des tâches.</p>
+                            <ul class="tags"><li>Zoho Analytics</li><li>Indicateurs</li></ul>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="groupe-projets" data-categorie="stage2">
+                    <h3>Projets effectués en stage de BTS SIO2 (Gaches Chimie)</h3>
+                    <div class="grille-projets">
+                        <article class="projet">
+                            <h4>Workflow sur la phase de recrutement</h4>
+                            <p>Workflow automatisé qui suit toutes les étapes du recrutement, de la réception des
+                                candidatures jusqu'à l'intégration du nouveau collaborateur, avec notifications et
+                                rappels automatiques.</p>
+                            <ul class="tags"><li>JavaScript</li><li>Base de données</li><li>GitHub</li></ul>
+                        </article>
+
+                        <article class="projet">
+                            <h4>Workflow sur la phase de départ</h4>
+                            <p>Workflow qui coordonne les étapes du départ d'un collaborateur (récupération du
+                                matériel, désactivation des accès, transfert des responsabilités) tout en garantissant
+                                la sécurité des données de l'entreprise.</p>
+                            <ul class="tags"><li>JavaScript</li><li>Base de données</li><li>GitHub</li></ul>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============ COMPÉTENCES ============ -->
+            <section id="competences" class="popup-section" hidden>
+                <h2>Compétences</h2>
+                <p class="aide">Tableau de synthèse des compétences du BTS SIO (réalisations en formation et en stage).<br>
+                    Cliquez sur une coche <span class="check exemple">✓</span> pour voir les preuves
+                    associées. Utilisez les filtres pour mettre en valeur une compétence.</p>
+
+                <!-- Rempli automatiquement par index.js à partir de donnees.js -->
+                <div class="stats-competences"></div>
+                <div class="filtres filtres-competences" role="group" aria-label="Filtrer par compétence"></div>
+                <div class="table-scroll">
+                    <table class="skills-table"></table>
+                </div>
+
+                <div class="veille-techno-section">
+                    <h2>Veille technologique</h2>
+                    <ul class="veille-list">
+                        <li>
+                            <span class="veille-icn"><i class="fa-solid fa-globe" aria-hidden="true"></i></span>
+                            <span><a href="https://www.developpez.com/" target="_blank" rel="noopener">Developpez.com</a>
+                                pour les tutoriels techniques et l'actualité sur PHP, SQL, Java, etc.</span>
+                        </li>
+                        <li>
+                            <span class="veille-icn"><i class="fa-brands fa-youtube" aria-hidden="true"></i></span>
+                            <span>Des chaînes YouTube comme <a href="https://www.youtube.com/user/grafikarttv" target="_blank" rel="noopener">Grafikart</a>
+                                ou <a href="https://www.youtube.com/c/TheNetNinja" target="_blank" rel="noopener">The Net Ninja</a>
+                                pour apprendre des frameworks comme Laravel ou des techniques modernes de front-end.</span>
+                        </li>
+                        <li>
+                            <span class="veille-icn"><i class="fa-brands fa-firefox-browser" aria-hidden="true"></i></span>
+                            <span>Le site <a href="https://developer.mozilla.org/fr/" target="_blank" rel="noopener">MDN Web Docs</a>
+                                de Mozilla pour des bases solides en HTML/CSS/JS.</span>
+                        </li>
+                        <li>
+                            <span class="veille-icn"><i class="fa-brands fa-stack-overflow" aria-hidden="true"></i></span>
+                            <span><a href="https://stackoverflow.com/" target="_blank" rel="noopener">Stack Overflow</a> ou
+                                <a href="https://www.reddit.com/r/learnprogramming/" target="_blank" rel="noopener">Reddit (r/learnprogramming)</a>
+                                pour poser mes questions et voir comment d'autres résolvent les mêmes problèmes.</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- ============ CV ============ -->
+            <section id="cv" class="popup-section" hidden>
+                <h2>CV</h2>
+                <div class="cv-preview">
+                    <!-- loading="lazy" : le PDF n'est chargé que lorsque la section est affichée -->
+                    <iframe src="CV_Adrien_Cachoux.pdf" title="CV d'Adrien Cachoux" loading="lazy"></iframe>
+                </div>
+                <div class="cv-download">
+                    <a href="CV_Adrien_Cachoux.pdf" download class="download-button">
+                        <i class="fas fa-download" aria-hidden="true"></i> Télécharger mon CV
+                    </a>
+                    <a href="CV_Adrien_Cachoux.pdf" target="_blank" rel="noopener" class="download-button secondaire">
+                        <i class="fas fa-up-right-from-square" aria-hidden="true"></i> Ouvrir en plein écran
+                    </a>
+                </div>
+            </section>
+
+            <!-- ============ CONTACT ============ -->
+            <section id="contact" class="popup-section" hidden>
+                <h2>Contact</h2>
+                <ul class="contact-list">
+                    <li>
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
+                        <a href="mailto:a.cachoux@gmail.com">a.cachoux@gmail.com</a>
+                        <button type="button" class="bouton-copier" data-copier="a.cachoux@gmail.com" aria-label="Copier l'adresse email">
+                            <i class="fas fa-copy" aria-hidden="true"></i> Copier
+                        </button>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone" aria-hidden="true"></i>
+                        <a href="tel:+33781836174">07 81 83 61 74</a>
+                    </li>
+                    <li>
+                        <i class="fas fa-school" aria-hidden="true"></i>
+                        Institut Limayrac - Toulouse (31)
+                    </li>
+                </ul>
+
+                <div class="contact-form-section">
+                    <h3>Envoyez-moi un message</h3>
+                    <form id="contact-form" class="contact-form" action="https://formspree.io/f/mzzekgzp" method="POST">
+                        <div class="form-ligne">
                             <div class="form-group">
-                                <label for="name">Nom/Prénom</label>
-                                <input type="text" id="name" name="name" required>
+                                <label for="name">Nom / Prénom</label>
+                                <input type="text" id="name" name="name" autocomplete="name" required>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="email" id="email" name="email" required>
+                                <input type="email" id="email" name="email" autocomplete="email" required>
                             </div>
-                            <div class="form-group">
-                                <label for="subject">Sujet</label>
-                                <input type="text" id="subject" name="subject" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="message">Message</label>
-                                <textarea id="message" name="message" rows="5" required></textarea>
-                            </div>
-                            <button type="submit" class="submit-button">Envoyer</button>
-                        </form>
-                    </div>
-
-
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Sujet</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required minlength="10"></textarea>
+                        </div>
+                        <!-- Champ piège anti-spam : invisible pour les humains, rempli par les robots -->
+                        <input type="text" name="_gotcha" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+                        <button type="submit" class="submit-button"><i class="fas fa-paper-plane" aria-hidden="true"></i> Envoyer</button>
+                        <p class="form-statut" role="status" aria-live="polite"></p>
+                    </form>
                 </div>
-            </div>
+            </section>
         </div>
-    </div>
 
-    <!-- Ajout du style pour la section veille -->
-    <style>
-    .veille-title {
-        color: #FFA500;
-        text-align: center;
-        margin-bottom: 24px;
-        font-size: 2em;
-        letter-spacing: 1px;
-    }
-    .veille-list {
-        list-style: none;
-        padding: 0;
-        max-width: 800px;
-        margin: 0 auto 30px auto;
-    }
-    .veille-list li {
-        display: flex;
-        align-items: center;
-        margin-bottom: 18px;
-        background: rgba(255,165,0,0.07);
-        border-radius: 10px;
-        padding: 16px 22px;
-        font-size: 1.08em;
-        color: white;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-        transition: background 0.2s;
-    }
-    .veille-list li:hover {
-        background: rgba(255,165,0,0.13);
-    }
-    .veille-list a {
-        color: #FFA500;
-        font-weight: normal;
-        text-decoration: none;
-        transition: color 0.2s;
-        margin: 0 2px;
-    }
-    .veille-list a:hover {
-        color: #FF8C00;
-        text-decoration: underline;
-    }
-    .veille-icn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 32px;
-        height: 32px;
-        min-width: 32px;
-        min-height: 32px;
-        margin-right: 16px;
-        font-size: 1.6em;
-        color: #FFA500;
-        background: #232323;
-        border-radius: 7px;
-        box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    }
-    @media (max-width: 600px) {
-        .veille-list li {
-            flex-direction: column;
-            align-items: flex-start;
-            font-size: 1em;
-            padding: 12px 10px;
-        }
-        .veille-icn {
-            margin-bottom: 8px;
-            margin-right: 0;
-        }
-    }
-    </style>
+        <!-- Petite notification ("Adresse email copiée") -->
+        <div class="toast" role="status" aria-live="polite"></div>
+    </dialog>
+
+    <!-- Visionneuse de preuves (images / PDF) : s'ouvre par-dessus la popup -->
+    <dialog id="visionneuse" class="visionneuse" aria-labelledby="visionneuse-titre">
+        <div class="visionneuse-inner">
+            <header class="visionneuse-header">
+                <div>
+                    <p class="visionneuse-contexte"></p>
+                    <h3 class="visionneuse-titre" id="visionneuse-titre"></h3>
+                </div>
+                <span class="visionneuse-compteur"></span>
+                <button type="button" class="close-visionneuse" aria-label="Fermer la visionneuse">&times;</button>
+            </header>
+            <div class="visionneuse-scene">
+                <button type="button" class="visionneuse-prec" aria-label="Preuve précédente"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+                <div class="visionneuse-media"></div>
+                <button type="button" class="visionneuse-suiv" aria-label="Preuve suivante"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+            </div>
+            <div class="visionneuse-miniatures"></div>
+        </div>
+    </dialog>
 </body>
 
 </html>

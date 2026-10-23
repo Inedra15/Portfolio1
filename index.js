@@ -1,826 +1,449 @@
+/* =========================================================
+   LOGIQUE DU PORTFOLIO
+   Les données (projets, preuves) sont dans donnees.js
+   ========================================================= */
+
 document.addEventListener("DOMContentLoaded", function () {
-    let button = document.querySelector(".explore-button"); // Sélectionne le bouton
-    let background = document.querySelector(".background_image img"); // Sélectionne l'image
-    let intro = document.getElementById("intro"); // Sélectionne la div intro
-    let cercle = document.getElementById("cercle"); // Sélectionne le cercle
-    let rond = document.getElementById("rond"); // Sélectionne le rond
-    let rond2 = document.getElementById("rond2");
-    let rond3 = document.getElementById("rond3");
-    let rond4 = document.getElementById("rond4");
-    let rond5 = document.getElementById("rond5");
 
-    // Sélection de tous les cercles et fonds
-    let tousLesCercles = document.querySelectorAll(".div_comp .cercle");
-    let tousLesFonds = document.querySelectorAll(".div_comp .fond_cercle");
-    let tousLesTextes = document.querySelectorAll(".texte_cercle");
+    // Sections disponibles : l'identifiant sert aussi d'ancre dans l'URL (#projets...)
+    const SECTIONS = ["apropos", "projets", "competences", "cv", "contact"];
 
-    // Debug des éléments sélectionnés
-    console.log("Nombre de cercles trouvés:", tousLesCercles.length);
-    console.log("Nombre de fonds trouvés:", tousLesFonds.length);
-    console.log("Nombre de textes trouvés:", tousLesTextes.length);
+    // L'utilisateur a-t-il demandé à réduire les animations (réglage du système) ?
+    const animationsReduites = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // Tailles initiales
-    const tailleInitialeCercle = 80;
-    const tailleInitialeFond = 70;
-    const tailleInitialeTexte = 14;
+    /* -----------------------------------------------------
+       1. INTRO : bouton "Commencer à explorer"
+       ----------------------------------------------------- */
+    const boutonExplorer = document.querySelector(".explore-button");
 
-    // Fonction pour agrandir les cercles
-    function agrandirCercles(event) {
-        console.log("Agrandissement des cercles"); // Debug
-        const cercleParent = event.target.closest('.div_comp');
-        const cercleImg = cercleParent.querySelector('.cercle');
-        const fondCercle = cercleParent.querySelector('.fond_cercle');
-        const texteCercle = cercleParent.querySelector('.texte_cercle');
+    // Lance l'exploration : le CSS se charge de toutes les animations
+    // (fondu de l'intro, défloutage de la carte, apparition des cercles)
+    function lancerExploration(instantane) {
+        if (document.body.classList.contains("exploration")) return;
+        if (instantane) document.body.classList.add("sans-animation");
+        document.body.classList.add("exploration");
+        // La carte devient défilable avec la classe "exploration" : on la centre aussitôt
+        centrerCarte();
 
-        if (cercleImg && fondCercle && texteCercle) {
-            cercleImg.style.width = "270px";
-            fondCercle.style.width = "170px";
-            texteCercle.style.fontSize = "26px";
-            texteCercle.style.width = "150px";
+        // Sur grand écran, on ouvre le menu latéral une fois les cercles apparus
+        if (!instantane && window.matchMedia("(min-width: 1401px)").matches) {
+            setTimeout(() => ouvrirMenu(true), animationsReduites ? 0 : 3500);
+        }
+        // Enlève la classe une fois la page affichée pour réactiver les transitions
+        if (instantane) requestAnimationFrame(() => requestAnimationFrame(() => {
+            document.body.classList.remove("sans-animation");
+        }));
+    }
+
+    boutonExplorer.addEventListener("click", () => lancerExploration(false));
+
+    /* -----------------------------------------------------
+       1 bis. CARTE : sur un écran plus étroit que la carte (mobile),
+       on la centre sur les cercles et on indique qu'elle peut glisser
+       ----------------------------------------------------- */
+    const zoneCarte = document.querySelector(".menu-stage");
+    const carte = document.querySelector(".carte");
+    const indiceGlisser = document.querySelector(".indice-glisser");
+
+    function centrerCarte() {
+        // 52 % = milieu horizontal des lieux placés sur la carte
+        zoneCarte.scrollLeft = carte.offsetWidth * 0.52 - zoneCarte.clientWidth / 2;
+
+        if (zoneCarte.scrollWidth > zoneCarte.clientWidth + 40) {
+            indiceGlisser.classList.add("visible");
+            const cacher = () => indiceGlisser.classList.remove("visible");
+            // Le défilement fait par l'utilisateur cache l'indication
+            // (on attend un peu pour ignorer le centrage automatique ci-dessus)
+            setTimeout(() => zoneCarte.addEventListener("scroll", cacher, { once: true }), 300);
+            setTimeout(cacher, 6000);
         }
     }
 
-    // Fonction pour réduire les cercles
-    function reduireCercles(event) {
-        console.log("Réduction des cercles"); // Debug
-        const cercleParent = event.target.closest('.div_comp');
-        const cercleImg = cercleParent.querySelector('.cercle');
-        const fondCercle = cercleParent.querySelector('.fond_cercle');
-        const texteCercle = cercleParent.querySelector('.texte_cercle');
+    /* -----------------------------------------------------
+       2. MENU BURGER (barre latérale)
+       ----------------------------------------------------- */
+    const burgerIcon = document.querySelector(".burger-icon");
+    const navSidebar = document.querySelector(".nav-sidebar");
 
-        if (cercleImg && fondCercle && texteCercle) {
-            cercleImg.style.width = "135px";
-            fondCercle.style.width = "85px";
-            texteCercle.style.fontSize = "12px";
-            texteCercle.style.width = "70px";
-        }
+    function ouvrirMenu(ouvert) {
+        burgerIcon.classList.toggle("active", ouvert);
+        navSidebar.classList.toggle("active", ouvert);
+        burgerIcon.setAttribute("aria-expanded", ouvert);
+        burgerIcon.setAttribute("aria-label", ouvert ? "Fermer le menu" : "Ouvrir le menu");
     }
 
-    // Ajout des événements de survol sur tous les cercles
-    // (uniquement sur les appareils avec une vraie souris : sur tactile,
-    // l'agrandissement resterait bloqué "actif" après un tap et pourrait
-    // chevaucher les cercles voisins)
-    const supporteHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    if (supporteHover) {
-        tousLesCercles.forEach(cercle => {
-            cercle.addEventListener("mouseenter", agrandirCercles);
-            cercle.addEventListener("mouseleave", reduireCercles);
-        });
-    }
-
-    // Ajout des transitions CSS pour une animation fluide
-    tousLesCercles.forEach(cercle => cercle.style.transition = "width 0.3s ease");
-    tousLesFonds.forEach(fond => fond.style.transition = "width 0.3s ease");
-    tousLesTextes.forEach(texte => texte.style.transition = "all 0.3s ease");
-
-    // Fonction pour faire apparaître un cercle avec animation
-    function apparaitreCercle(element, delai) {
-        setTimeout(() => {
-            // D'abord, on affiche l'élément avec opacité 0
-            element.style.display = "flex";
-            element.style.opacity = "0";
-            element.style.transform = "scale(0.5)";
-
-            // Petit délai pour laisser le navigateur prendre en compte le display: flex
-            setTimeout(() => {
-                // Ensuite, on applique l'opacité et l'échelle
-                element.style.opacity = "1";
-                element.style.transform = "scale(1)";
-            }, 50);
-        }, delai);
-    }
-
-    button.addEventListener("click", function () {
-        // Assurer que l'origine de transformation est bien au centre
-        background.style.transformOrigin = "center";
-        background.style.display = "block";
-
-        // Applique la transition sur le flou et le zoom en même temps
-        background.style.transition = "filter 1s ease-out, transform 1s ease-out";
-        background.style.filter = "blur(0px)";
-        background.style.transform = "scale(1.08)";
-
-        // Fait disparaître l'intro en douceur
-        intro.style.transition = "opacity 1s ease-out";
-        intro.style.opacity = "0";
-        cercle.style.transition = "opacity 1s ease-out";
-        cercle.style.opacity = "0";
-
-        // Réinitialise les cercles pour l'animation
-        [rond, rond2, rond3, rond4, rond5].forEach(element => {
-            element.style.transition = "opacity 1s ease-out, transform 1s ease-out";
-            element.style.opacity = "0";
-            element.style.transform = "scale(0.5)";
-            element.style.display = "none";
-        });
-
-        // Après la transition initiale
-        setTimeout(() => {
-            intro.style.display = "none";
-            cercle.style.display = "none";
-
-            // Apparition désynchronisée des cercles avec des délais plus longs
-            apparaitreCercle(rond, 500);     // Premier cercle après 500ms
-            apparaitreCercle(rond2, 1000);   // Deuxième cercle après 1000ms
-            apparaitreCercle(rond3, 1500);   // Troisième cercle après 1500ms
-            apparaitreCercle(rond4, 2000);   // Quatrième cercle après 2000ms
-            apparaitreCercle(rond5, 2500);   // Cinquième cercle après 2500ms
-
-            // Ouvre la barre de navigation après l'apparition des cercles
-            setTimeout(() => {
-                burgerIcon.classList.add('active');
-                navSidebar.classList.add('active');
-            }, 3000); // Ouvre la nav après 3 secondes (après l'apparition du dernier cercle)
-        }, 1000);
+    burgerIcon.addEventListener("click", () => {
+        ouvrirMenu(!navSidebar.classList.contains("active"));
     });
 
-    // Sélection des éléments de la popup
-    const popupOverlay = document.getElementById("popup-overlay");
-    const popupBody = document.querySelector(".popup-body");
-    const closePopup = document.querySelector(".close-popup");
-    const popupSections = document.querySelectorAll(".popup-section");
-
-    // Images pour chaque compétence par projet
-    const skillImages = {
-        'LinkedIn,CV': {
-            'Organiser son développement professionnel': {
-                path: 'image/competences/linkedin_CV/organiser_developpement',
-                titles: {
-                    'image1': 'Mon profil LinkedIn',
-                    'image2': 'Mon CV'
-                }
-            }
-        },
-        'CazaFamilia - Système de gestion de restaurant italien': {
-            'Répondre aux incidents': {
-                path: 'image/competences/CazaFamilia/repondre_incidents',
-                titles: {
-                    'image1': 'Issue GitHub',
-                    'image2': 'Votre titre personnalisé pour la deuxième image'
-                }
-            },
-            'Développer la présence en ligne': {
-                path: 'image/competences/CazaFamilia/developper_en_ligne',
-                titles: {
-                    'image1': 'Page d\'accueil du site',
-                    'image2': 'Menu en ligne'
-                }
-            },
-            'Travailler en mode projet': {
-                path: 'image/competences/CazaFamilia/travailler_projet',
-                titles: {
-                    'image1': 'Utilisation de GitHub',
-                    'image2': 'Utilisation de Trello'
-                }
-            },
-            'Mettre à disposition': {
-                path: 'image/competences/CazaFamilia/mettre_a_dispo',
-                titles: {
-                    'image1': 'Site web accueil',
-                    'image2': 'Site web menu',
-                    'image3': 'Toutes les commandes',
-                    'image4': 'Détails des commandes',
-                }
-            },
-            'Organiser son développement professionnel': {
-                path: 'image/competences/CazaFamilia/organiser_developpement',
-                titles: {
-                    'image1': 'Cours PHP',
-                    'image2': 'Cours JAVA'
-                }
-            }
-        },
-        'Site web M2L': {
-            'Travailler en mode projet': {
-                path: 'image/competences/M2L/travailler_projet',
-                titles: {
-                    'image1': 'Utilisation de Google Drive',
-                    'image2': 'Planning des tâches'
-                }
-            },
-            'Mettre à disposition': {
-                path: 'image/competences/M2L/mettre_a_dispo',
-                titles: {
-                    'image1': 'Page d\'accueil du site',
-                    'image2': 'Calendrier des matchs'
-                }
-            },
-            'Organiser son développement professionnel': {
-                path: 'image/competences/M2L/organiser_developpement',
-                titles: {
-                    'image1': 'Cours HTML/CSS',
-                    'image2': 'Rapport de stage'
-                }
-            }
-        },
-        'AP GLPI': {
-            'Gérer le patrimoine informatique': {
-                path: 'image/competences/apGLPI/gerer_patrimoine',
-                titles: {
-                    'image1': 'Interface GLPI',
-                    'image2': 'Gestion du parc informatique',
-                    'image3': 'Gestion des comptes utilisateurs',
-                }
-            }
-        },
-        'Portfolio': {
-            'Organiser son développement professionnel': {
-                path: 'image/competences/Portfolio/organiser_developpement',
-                titles: {
-                    'image1': 'Apprentissage herbergement web',
-                    'image2': 'Organisation des compétences'
-                }
-            },
-            'Développer la présence en ligne': {
-                path: 'image/competences/Portfolio/developper_en_ligne',
-                titles: {
-                    'image1': 'Mise en ligne du portfolio',
-                    'image2': 'Interface responsive'
-                }
-            }
-        },
-        'Site web d\'FAQ': {
-            'Répondre aux incidents': {
-                path: 'image/competences/FAQ/repondre_incidents',
-                titles: {
-                    'image1': 'Issue GitHub',
-                    'image2': 'Système de réponse'
-                }
-            },
-            'Développer la présence en ligne': {
-                path: 'image/competences/FAQ/developper_en_ligne',
-                titles: {
-                    'image1': 'Page d\'accueil FAQ',
-                    'image2': 'Interface utilisateur'
-                }
-            },
-            'Travailler en mode projet': {
-                path: 'image/competences/FAQ/travailler_projet',
-                titles: {
-                    'image1': 'Utilisation de GitHub',
-                    'image2': 'Utilisation de Trello'
-                }
-            },
-            'Mettre à disposition': {
-                path: 'image/competences/FAQ/mettre_a_dispo',
-                titles: {
-                    'image1': 'Page d\'accueil FAQ',
-                    'image2': 'Page de d\'inscription'
-                }
-            },
-            'Organiser son développement professionnel': {
-                path: 'image/competences/FAQ/organiser_developpement',
-                titles: {
-                    'image1': 'Cours PHP',
-                    'image2': 'Rapport de stage'
-                }
-            }
-        },
-        'Workflow sur la phase de recrutement': {
-            'Gérer le patrimoine informatique': {
-                path: 'image/competences/Gaches Chimie/workflow_recrutement/gerer_patrimoine',
-                titles: {
-                    'image1': 'Création et gestion BDD',
-                    'image2': 'Script de gestions des mails automatiques'
-                }
-            },
-            'Répondre aux incidents': {
-                path: 'image/competences/Gaches Chimie/workflow_recrutement/repondre_incidents',
-                titles: {
-                    'image1': 'Réunion avec les RH',
-                    'image2': 'Réunion avec les RH'
-                }
-            },
-            'Travailler en mode projet': {
-                path: 'image/competences/Gaches Chimie/workflow_recrutement/travailler_projet',
-                titles: {
-                    'image1': 'Réunion avec les RH',
-                    'image2': 'Réunion avec les RH',
-                    'image3': 'Utilisation de GitHub'
-                }
-            },
-            'Mettre à disposition': {
-                path: 'image/competences/Gaches Chimie/workflow_recrutement/mettre_a_dispo',
-                titles: {
-                    'image1': 'Page d\'accueil du site',
-                    'image2': 'Formulaire de demande de recrutement',
-                    'image3': 'Page d\'accueil des candidats',
-                    'image4': 'Formulaire d\'ajout de candidats'
-                }
-            },
-            'Organiser son développement professionnel': {
-                path: 'image/competences/Gaches Chimie/workflow_recrutement/organiser_developpement',
-                titles: {
-                    'image1': 'Apprentissage JavaScript',
-                    'image2': 'Votre titre personnalisé pour la deuxième image'
-                }
-            }
-        },
-        'Workflow sur la phase de départ': {
-            'Gérer le patrimoine informatique': {
-                path: 'image/competences/Gaches Chimie/Workflow_depart/gerer_patrimoine',
-                titles: {
-                    'image1': 'Création et gestion BDD',
-                    'image2': 'Script de gestions des mails automatiques'
-                }
-            },
-            'Répondre aux incidents': {
-                path: 'image/competences/Gaches Chimie/Workflow_depart/repondre_incidents',
-                titles: {
-                    'image1': 'Réunion avec les RH',
-                    'image2': 'Réunion avec les RH'
-                }
-            },
-            'Travailler en mode projet': {
-                path: 'image/competences/Gaches Chimie/Workflow_depart/travailler_projet',
-                titles: {
-                    'image1': 'Réunion avec les RH',
-                    'image2': 'Réunion avec les RH',
-                    'image3': 'Utilisation de GitHub'
-                }
-            },
-            'Mettre à disposition': {
-                path: 'image/competences/Gaches Chimie/Workflow_depart/mettre_a_dispo',
-                titles: {
-                    'image1': 'Remise des besoins',
-                    'image2': 'Liste de tous les employer'
-                }
-            },
-            'Organiser son développement professionnel': {
-                path: 'image/competences/Gaches Chimie/Workflow_depart/organiser_developpement',
-                titles: {
-                    'image1': 'Apprentissage JavaScript',
-                    'image2': 'Réunion avec les RH'
-                }
-            }
-        },
-        // Projets Mobix
-        'Tableau prévisionnel de la charge de travail à prévoir en plus par collaborateur': {
-            'Répondre aux incidents': {
-                path: 'image/competences/mobix/Tableau_previsionelle/repondre_incidents',
-                titles: {
-                    'image1':'Tableau prévisionnel - Charge de travail'
-                }
-            },
-            'Travailler en mode projet': {
-                path: 'image/competences/mobix/Tableau_previsionelle/travailler_projet',
-                titles: {
-                    'image1':'Utilisation de l\'application Zoho Analytics'
-                }
-            },
-            'Mettre à disposition': {
-                path: 'image/competences/mobix/Tableau_previsionelle/mettre_a_dispo',
-                titles: {
-                    'image1':'Résultat final'
-                } 
-            }
-        },
-        'Indicateur de retard de tous les projets ouverts': {
-            'Répondre aux incidents': {
-                path: 'image/competences/mobix/indicateur_retard/repondre_incidents',
-                titles: {
-                    'image1':'Indicateur de retard - Projets'
-                }
-            },
-            'Travailler en mode projet': {
-                path: 'image/competences/mobix/indicateur_retard/travailler_projet',
-                titles: {
-                    'image1':'Utilisation de l\'application Zoho Analytics'
-                } 
-            },
-            'Mettre à disposition': {
-                path: 'image/competences/mobix/indicateur_retard/mettre_a_dispo',
-                titles: {
-                    'image1':'Résultat final'
-                }
-            }
-        },
-        'Variation des marges des projets': {
-            'Répondre aux incidents': {
-                path: 'image/competences/mobix/variation_marge/repondre_incidents',
-                titles: {
-                    'image1':'Utilisation de l\'application Zoho Analytics'
-                } 
-            },
-            'Travailler en mode projet': {
-                path: 'image/competences/mobix/variation_marge/travailler_projet',
-                titles: {
-                    'image1':'Utilisation de l\'application Zoho Analytics'
-                } 
-            },
-            'Mettre à disposition': {
-                path: 'image/competences/mobix/variation_marge/mettre_a_dispo',
-                titles: {
-                    'image1':'Résultat final'
-                }
-            }
-        },
-        'Contrats sans paiements effectués': {
-            'Répondre aux incidents': {
-                path: 'image/competences/mobix/contrat_sans_paiement/repondre_incidents',
-                titles: 'Suivi des contrats - Paiements'
-            },
-            'Travailler en mode projet': {
-                path: 'image/competences/mobix/contrat_sans_paiement/travailler_projet',
-                titles: {
-                    'image1':'Utilisation de l\'application Zoho Analytics'
-                } 
-            },
-            'Mettre à disposition': {
-                path: 'image/competences/mobix/contrat_sans_paiement/mettre_a_dispo',
-                titles: {
-                    'image1':'Résultat final'
-                }
-            },
-        },
-        'Tableau des temps effectués par collaborateur en fonction des objectifs initiaux': {
-            'Répondre aux incidents': {
-                path: 'image/competences/mobix/tableau_temps/repondre_incidents',
-                titles: 'Suivi des contrats - Paiements'
-            },
-            'Travailler en mode projet': {
-                path: 'image/competences/mobix/tableau_temps/travailler_projet',
-                titles: {
-                    'image1':'Utilisation de l\'application Zoho Analytics'
-                } 
-            },
-            'Mettre à disposition': {
-                path: 'image/competences/mobix/tableau_temps/mettre_a_dispo',
-                titles: {
-                    'image1':'Résultat final'
-                }
-            },
+    // Touche Échap : ferme le menu
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && navSidebar.classList.contains("active") && !popup.open) {
+            ouvrirMenu(false);
+            burgerIcon.focus();
         }
+    });
 
-        
-    };
-    // Fonction pour ouvrir la popup
-    function openPopup(sectionId) {
-        // Cacher toutes les sections
-        popupSections.forEach(section => {
-            section.style.display = 'none';
-        });
+    /* -----------------------------------------------------
+       3. POPUP PRINCIPALE (élément <dialog> natif)
+       Navigation par ancre : #apropos, #projets, etc.
+       → les liens sont partageables et le bouton "retour"
+         du navigateur ferme la popup.
+       ----------------------------------------------------- */
+    const popup = document.getElementById("popup");
+    const barreProgression = popup.querySelector(".popup-progress");
+    const onglets = popup.querySelectorAll(".popup-onglets a");
 
-        // Afficher la section demandée
-        const targetSection = document.getElementById(sectionId);
-        if (targetSection) {
-            targetSection.style.display = 'block';
-        }
-
-        popupOverlay.classList.add("active");
-        document.body.style.overflow = "hidden";
-
-        // Fermer le menu burger
-        burgerIcon.classList.remove('active');
-        navSidebar.classList.remove('active');
-
-        // Ajouter les gestionnaires d'événements pour les cases cochées
-        const checks = popupBody.querySelectorAll('.check');
-        const skillImagePopup = popupBody.querySelector('#skill-image-popup');
-        const skillImage = popupBody.querySelector('#skill-image');
-        const closeSkillImage = popupBody.querySelector('.close-skill-image');
-
-        checks.forEach(check => {
-            check.style.cursor = 'pointer';
-            check.addEventListener('click', () => {
-                const projectRow = check.closest('tr');
-                const projectName = projectRow.querySelector('td:first-child').textContent.trim();
-                const headerCells = document.querySelectorAll('.skills-table th');
-                const cellIndex = Array.from(check.closest('td').parentElement.children).indexOf(check.closest('td'));
-                const fullSkill = headerCells[cellIndex].textContent.trim();
-                // Redirection spéciale pour LinkedIn,CV
-                if (projectName === 'LinkedIn,CV') {
-                    window.open('https://www.linkedin.com/in/adrien-cachoux-8607b82a0/', '_blank');
-                    return;
-                }
-                // Redirection spéciale pour CazaFamilia - Système de gestion de restaurant italien > Développer la présence en ligne
-                if (projectName === 'CazaFamilia - Système de gestion de restaurant italien' && (fullSkill === 'Développer la présence en ligne de l\'organisation' || fullSkill === 'Développer la présence en ligne')) {
-                    window.open('https://cazafamilia.brandonmolina.fr/', '_blank');
-                    return;
-                }
-                // Redirection spéciale pour Site web d'FAQ > Développer la présence en ligne
-                if (projectName === "Site web d'FAQ" && (fullSkill === "Développer la présence en ligne de l\'organisation" || fullSkill === 'Développer la présence en ligne')) {
-                    window.open('https://appfaq.brandonmolina.fr/', '_blank');
-                    return;
-                }
-                // Redirection spéciale pour les projets Mobix > Répondre aux incidents
-                const mobixProjects = [
-                    'Tableau prévisionnel de la charge de travail à prévoir en plus par collaborateur',
-                    'Indicateur de retard de tous les projets ouverts',
-                    'Variation des marges des projets',
-                    'Contrats sans paiements effectués',
-                    'Tableau des temps effectués par collaborateur en fonction des objectifs initiaux',
-                    'Actualisation de la date de paiement des contrats payés mensuellement',
-                    'Modification fiche devis client en fonction des dates'
-                ];
-                if (mobixProjects.includes(projectName) && (fullSkill === "Répondre aux incidents et aux demandes d'assistance et d'évolution" || fullSkill === 'Répondre aux incidents')) {
-                    // Générer le chemin du PDF
-                    let pdfPath = '';
-                    if (projectName === 'Tableau prévisionnel de la charge de travail à prévoir en plus par collaborateur') {
-                        pdfPath = 'image/competences/mobix/Tableau_previsionelle/repondre_incidents/document1.pdf';
-                    } else if (projectName === 'Indicateur de retard de tous les projets ouverts') {
-                        pdfPath = 'image/competences/mobix/indicateur_retard/repondre_incidents/document1.pdf';
-                    } else if (projectName === 'Variation des marges des projets') {
-                        pdfPath = 'image/competences/mobix/variation_marge/repondre_incidents/document1.pdf';
-                    } else if (projectName === 'Contrats sans paiements effectués') {
-                        pdfPath = 'image/competences/mobix/contrat_sans_paiement/repondre_incidents/document1.pdf';
-                    } else if (projectName === 'Tableau des temps effectués par collaborateur en fonction des objectifs initiaux') {
-                        pdfPath = 'image/competences/mobix/tableau_temps/repondre_incidents/document1.pdf';
-                    }
-                    if (pdfPath) {
-                        window.open(pdfPath, '_blank');
-                        return;
-                    }
-                }
-                // Mapping des titres complets vers les clés courtes
-                const skillMapping = {
-                    'Mettre à disposition des utilisateurs un service informatique': 'Mettre à disposition',
-                    'Organiser son développement professionnel': 'Organiser son développement professionnel',
-                    'Gérer le patrimoine informatique': 'Gérer le patrimoine informatique',
-                    'Répondre aux incidents et aux demandes d\'assistance et d\'évolution': 'Répondre aux incidents',
-                    'Développer la présence en ligne de l\'organisation': 'Développer la présence en ligne',
-                    'Travailler en mode projet': 'Travailler en mode projet'
-                };
-
-                const skill = skillMapping[fullSkill] || fullSkill;
-
-                if (skillImages[projectName] && skillImages[projectName][skill]) {
-                    const imagePath = skillImages[projectName][skill].path;
-                    console.log('Chargement des images pour:', projectName, skill, imagePath); // Debug
-
-                    // Créer un conteneur pour les images et PDFs
-                    const imagesContainer = document.createElement('div');
-                    imagesContainer.className = 'skill-images-container';
-
-                    let hasContent = false;
-
-                    // Tableau des extensions d'images et PDF possibles
-                    const imageExt = ['.png', '.jpg', '.jpeg'];
-                    const pdfExt = ['.pdf'];
-
-                    // Essayer de charger jusqu'à 5 images numérotées avec différentes extensions
-                    for (let i = 1; i <= 5; i++) {
-                        // Vérifier d'abord les images
-                        for (const ext of imageExt) {
-                            const imgPath = `${imagePath}/image${i}${ext}`;
-
-                            const img = document.createElement('img');
-                            img.src = imgPath;
-                            img.alt = `Compétence ${i}`;
-                            img.dataset.loaded = 'false';
-
-                            img.onload = function () {
-                                this.dataset.loaded = 'true';
-                                hasContent = true;
-
-                                // Créer le conteneur pour l'image et son titre
-                                const imageContainer = document.createElement('div');
-                                imageContainer.className = 'skill-image-container';
-
-                                // Créer le titre
-                                const title = document.createElement('h3');
-                                title.className = 'skill-image-title';
-
-                                // Utiliser le titre personnalisé pour cette image spécifique
-                                const skillInfo = skillImages[projectName][skill];
-                                // Extraire le nom du fichier (ex: image2.jpg)
-                                const fileName = this.src.split('/').pop();
-                                // Extraire le numéro d'image avec une regex
-                                const match = fileName.match(/^image(\d+)/);
-                                const imageKey = match ? `image${match[1]}` : null;
-
-                                if (skillInfo && skillInfo.titles && imageKey && skillInfo.titles[imageKey]) {
-                                    title.textContent = skillInfo.titles[imageKey];
-                                } else {
-                                    title.textContent = `${projectName} - ${skill}`;
-                                }
-
-                                // Ajouter le titre et l'image au conteneur
-                                imageContainer.appendChild(title);
-                                imageContainer.appendChild(this);
-
-                                // Ajouter le conteneur à la popup
-                                imagesContainer.appendChild(imageContainer);
-                            };
-
-                            img.onerror = function () {
-                                // Ne rien faire, l'image sera ignorée
-                                this.remove();
-                            };
-
-                            // Ajouter temporairement pour déclencher le chargement
-                            document.body.appendChild(img);
-                            document.body.removeChild(img);
-                        }
-
-                        // Vérifier ensuite les PDFs
-                        for (const ext of pdfExt) {
-                            const pdfPath = `${imagePath}/document${i}${ext}`;
-
-                            // Créer un conteneur pour le PDF avec un bouton pour l'ouvrir
-                            const pdfContainer = document.createElement('div');
-                            pdfContainer.className = 'pdf-container';
-
-                            const pdfLink = document.createElement('a');
-                            pdfLink.href = pdfPath;
-                            pdfLink.target = '_blank';
-                            pdfLink.textContent = `Voir le document ${i}`;
-                            pdfLink.className = 'pdf-link';
-
-                            // Vérifier si le PDF existe
-                            fetch(pdfPath, { method: 'HEAD' })
-                                .then(response => {
-                                    if (response.ok) {
-                                        pdfContainer.appendChild(pdfLink);
-                                        imagesContainer.appendChild(pdfContainer);
-                                        hasContent = true;
-
-                                        // Ajouter un aperçu du PDF intégré
-                                        const pdfPreview = document.createElement('div');
-                                        pdfPreview.className = 'pdf-preview';
-
-                                        const pdfEmbed = document.createElement('iframe');
-                                        pdfEmbed.src = pdfPath;
-                                        pdfEmbed.width = '100%';
-                                        pdfEmbed.height = '300px';
-                                        pdfEmbed.frameBorder = '0';
-
-                                        pdfPreview.appendChild(pdfEmbed);
-                                        imagesContainer.appendChild(pdfPreview);
-                                    }
-                                })
-                                .catch(() => {
-                                    // Ne rien faire, le PDF n'existe pas
-                                });
-                        }
-                    }
-
-                    // Ajouter un message si aucun contenu n'a été trouvé
-                    setTimeout(() => {
-                        if (imagesContainer.children.length === 0) {
-                            const message = document.createElement('p');
-                            message.textContent = "Les contenus pour cette compétence seront bientôt disponibles.";
-                            message.style.color = "#FFA500";
-                            message.style.textAlign = "center";
-                            message.style.padding = "30px";
-                            message.style.backgroundColor = "rgba(255, 165, 0, 0.1)";
-                            message.style.borderRadius = "8px";
-                            imagesContainer.appendChild(message);
-                        }
-                    }, 300);
-
-                    // Vider et ajouter le conteneur à la popup
-                    skillImagePopup.innerHTML = '';
-                    skillImagePopup.appendChild(closeSkillImage);
-                    skillImagePopup.appendChild(imagesContainer);
-
-                    // Positionner la popup par rapport à la position de défilement
-                    const popupContent = document.querySelector('.popup-content');
-                    const scrollTop = popupContent.scrollTop;
-                    skillImagePopup.style.top = `${scrollTop}px`;
-                    skillImagePopup.style.display = 'flex';
-                }
+    // Affiche une section dans la popup
+    function afficherSection(id) {
+        const changer = () => {
+            document.querySelectorAll(".popup-section").forEach(section => {
+                section.hidden = section.id !== id;
             });
-        });
-
-        if (closeSkillImage) {
-            closeSkillImage.addEventListener('click', () => {
-                skillImagePopup.style.display = 'none';
-            });
-        }
-
-        if (skillImagePopup) {
-            skillImagePopup.addEventListener('click', (e) => {
-                if (e.target === skillImagePopup) {
-                    skillImagePopup.style.display = 'none';
-                }
-            });
-        }
-    }
-
-    // Fonction pour fermer la popup
-    function closePopupHandler() {
-        popupOverlay.classList.remove("active");
-        document.body.style.overflow = ""; // Réactive le défilement
-
-        // Ouvrir le menu burger
-        burgerIcon.classList.add('active');
-        navSidebar.classList.add('active');
-    }
-
-    // Ajout des événements de fermeture
-    closePopup.addEventListener("click", closePopupHandler);
-    popupOverlay.addEventListener("click", (e) => {
-        if (e.target === popupOverlay) {
-            closePopupHandler();
-        }
-    });
-
-    // Ajout des événements de clic sur les cercles
-    [rond, rond2, rond3, rond4, rond5].forEach(element => {
-        element.addEventListener("click", () => {
-            const sectionId = element.id === 'rond' ? 'about-content' :
-                element.id === 'rond2' ? 'projects-content' :
-                    element.id === 'rond3' ? 'skills-content' :
-                        element.id === 'rond4' ? 'cv-content' :
-                            'contact-content';
-            openPopup(sectionId);
-        });
-    });
-
-    // Sélection des éléments du menu burger
-    const burgerIcon = document.querySelector('.burger-icon');
-    const navSidebar = document.querySelector('.nav-sidebar');
-    const navLinks = document.querySelectorAll('.nav-sidebar a');
-
-    // Gestionnaire pour le menu burger
-    burgerIcon.addEventListener('click', () => {
-        burgerIcon.classList.toggle('active');
-        navSidebar.classList.toggle('active');
-    });
-
-    // Gestionnaires pour les liens de navigation
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const section = e.target.getAttribute('data-section');
-            const sectionId = section === 'rond' ? 'about-content' :
-                section === 'rond2' ? 'projects-content' :
-                    section === 'rond3' ? 'skills-content' :
-                        section === 'rond4' ? 'cv-content' :
-                            'contact-content';
-
-            // Ferme le menu burger
-            burgerIcon.classList.remove('active');
-            navSidebar.classList.remove('active');
-
-            // Ouvre la popup correspondante
-            openPopup(sectionId);
-        });
-    });
-
-    // Gestionnaire pour les liens sociaux
-    const socialLinks = document.querySelectorAll('.social-links a');
-    socialLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            e.stopImmediatePropagation();
-            const href = link.getAttribute('href');
-            if (href) {
-                window.open(href, '_blank');
-            }
-            return false;
-        }, true); // Ajout de la capture phase
-    });
-
-    //cercle.style.display = "flex";
-
-    // Gestion du formulaire de contact
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                subject: document.getElementById('subject').value,
-                message: document.getElementById('message').value
-            };
-
-            try {
-                const response = await fetch('https://formspree.io/f/mzzekgzp', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                });
-
-                if (response.ok) {
-                    alert('Message envoyé avec succès !');
-                    contactForm.reset();
+            onglets.forEach(onglet => {
+                const actif = onglet.dataset.section === id;
+                onglet.classList.toggle("actif", actif);
+                if (actif) {
+                    onglet.setAttribute("aria-current", "page");
+                    // Sur mobile, les onglets défilent : on rend l'onglet actif visible
+                    onglet.scrollIntoView({ block: "nearest", inline: "nearest" });
                 } else {
-                    throw new Error('Erreur lors de l\'envoi du message');
+                    onglet.removeAttribute("aria-current");
                 }
-            } catch (error) {
-                alert('Une erreur est survenue lors de l\'envoi du message. Veuillez réessayer.');
-                console.error('Erreur:', error);
-            }
-        });
+            });
+            popup.scrollTop = 0;
+            majProgression();
+        };
+
+        // View Transitions API : fondu enchaîné entre deux sections
+        // (navigateurs récents ; sinon le changement est simplement immédiat)
+        if (popup.open && document.startViewTransition && !animationsReduites) {
+            document.startViewTransition(changer);
+        } else {
+            changer();
+        }
+
+        if (!popup.open) {
+            ouvrirMenu(false);
+            popup.showModal();
+        }
+        const titre = document.querySelector("#" + id + " h2");
+        document.title = (titre ? titre.textContent + " · " : "") + "Portfolio Adrien Cachoux";
     }
 
-    // Ajouter un écouteur d'événements pour le défilement
-    const popupContent = document.querySelector('.popup-content');
-    popupContent.addEventListener('scroll', () => {
-        if (skillImagePopup.style.display === 'flex') {
-            const scrollTop = popupContent.scrollTop;
-            skillImagePopup.style.top = `${scrollTop}px`;
+    // Lit l'ancre de l'URL et ouvre/ferme la popup en conséquence
+    function suivreAncre() {
+        const id = location.hash.slice(1);
+        if (SECTIONS.includes(id)) {
+            lancerExploration(true);
+            afficherSection(id);
+        } else if (popup.open) {
+            popup.close();
+        }
+    }
+
+    window.addEventListener("hashchange", suivreAncre);
+
+    // À la fermeture : on retire l'ancre de l'URL
+    popup.addEventListener("close", () => {
+        document.title = "Portfolio Adrien Cachoux";
+        if (location.hash) {
+            history.pushState("", "", location.pathname + location.search);
+        }
+        // Sur grand écran, le menu latéral se rouvre (comme avant)
+        if (window.matchMedia("(min-width: 1401px)").matches) ouvrirMenu(true);
+    });
+
+    // Clic sur le fond sombre (en dehors du contenu) → fermeture
+    popup.addEventListener("click", (e) => {
+        if (e.target === popup) popup.close();
+    });
+    popup.querySelector(".close-popup").addEventListener("click", () => popup.close());
+
+    // Barre de progression de lecture en haut de la popup
+    function majProgression() {
+        const max = popup.scrollHeight - popup.clientHeight;
+        const ratio = max > 0 ? popup.scrollTop / max : 0;
+        barreProgression.style.transform = `scaleX(${ratio})`;
+    }
+    popup.addEventListener("scroll", majProgression, { passive: true });
+
+    /* -----------------------------------------------------
+       4. TABLEAU DES COMPÉTENCES (généré depuis donnees.js)
+       ----------------------------------------------------- */
+    const tableau = document.querySelector(".skills-table");
+
+    function construireTableau() {
+        // En-tête : "Projets" + une colonne par compétence
+        let html = "<thead><tr><th scope=\"col\">Projets</th>";
+        COMPETENCES.forEach(c => {
+            html += `<th scope="col" data-competence="${c.id}">${c.nom}</th>`;
+        });
+        html += "</tr></thead><tbody>";
+
+        REALISATIONS.forEach((groupe, g) => {
+            html += `<tr class="section-header"><td colspan="${COMPETENCES.length + 1}">${groupe.periode}</td></tr>`;
+            groupe.projets.forEach((projet, p) => {
+                const competencesDuProjet = Object.keys(projet.preuves).join(" ");
+                html += `<tr data-competences="${competencesDuProjet}"><th scope="row">${projet.nom}</th>`;
+                COMPETENCES.forEach(c => {
+                    const preuve = projet.preuves[c.id];
+                    if (!preuve) {
+                        html += `<td data-competence="${c.id}"><span class="visually-hidden">Non</span></td>`;
+                    } else if (preuve.lien) {
+                        // Preuve = lien externe (site en ligne, profil LinkedIn...)
+                        html += `<td data-competence="${c.id}"><a class="check" data-label="${c.court}" href="${preuve.lien}" target="_blank" rel="noopener"
+                                 title="Ouvrir le lien" aria-label="${c.court} : ouvrir le lien (nouvel onglet)">✓<i class="fas fa-arrow-up-right-from-square"></i></a></td>`;
+                    } else {
+                        // Preuve = fichiers → ouverture de la visionneuse
+                        html += `<td data-competence="${c.id}"><button type="button" class="check" data-label="${c.court}" data-groupe="${g}" data-projet="${p}" data-competence="${c.id}"
+                                 title="${preuve.length} preuve(s)" aria-label="${c.court} : voir ${preuve.length} preuve(s)">✓</button></td>`;
+                    }
+                });
+                html += "</tr>";
+            });
+        });
+        tableau.innerHTML = html + "</tbody>";
+    }
+
+    // Filtres : met en valeur une compétence et les projets qui la valident
+    function construireFiltres() {
+        const zone = document.querySelector(".filtres-competences");
+        const tousLesProjets = REALISATIONS.flatMap(g => g.projets);
+
+        let html = `<button type="button" class="filtre actif" data-filtre="" aria-pressed="true">Toutes</button>`;
+        COMPETENCES.forEach(c => {
+            const nb = tousLesProjets.filter(p => p.preuves[c.id]).length;
+            html += `<button type="button" class="filtre" data-filtre="${c.id}" aria-pressed="false" title="${c.nom}">
+                        ${c.court} <span class="badge">${nb}</span></button>`;
+        });
+        zone.innerHTML = html;
+
+        zone.addEventListener("click", (e) => {
+            const bouton = e.target.closest(".filtre");
+            if (!bouton) return;
+            const id = bouton.dataset.filtre;
+            zone.querySelectorAll(".filtre").forEach(b => {
+                b.classList.toggle("actif", b === bouton);
+                b.setAttribute("aria-pressed", b === bouton);
+            });
+            tableau.dataset.filtre = id;
+            tableau.querySelectorAll("tbody tr[data-competences]").forEach(ligne => {
+                const valide = !id || ligne.dataset.competences.split(" ").includes(id);
+                ligne.classList.toggle("attenue", !valide);
+            });
+            // Un titre de période sans aucun projet visible en dessous est lui aussi atténué
+            tableau.querySelectorAll("tr.section-header").forEach(titre => {
+                let ligne = titre.nextElementSibling;
+                let aucunVisible = true;
+                while (ligne && !ligne.classList.contains("section-header")) {
+                    if (!ligne.classList.contains("attenue")) aucunVisible = false;
+                    ligne = ligne.nextElementSibling;
+                }
+                titre.classList.toggle("attenue", aucunVisible);
+            });
+            tableau.querySelectorAll("[data-competence]").forEach(cellule => {
+                cellule.classList.toggle("colonne-active", cellule.dataset.competence === id);
+            });
+        });
+
+        // Chiffres clés au-dessus du tableau
+        const nbPreuves = tousLesProjets.reduce((total, p) =>
+            total + Object.values(p.preuves).reduce((n, preuve) => n + (preuve.lien ? 1 : preuve.length), 0), 0);
+        document.querySelector(".stats-competences").innerHTML = `
+            <div class="stat"><strong>${tousLesProjets.length}</strong><span>réalisations</span></div>
+            <div class="stat"><strong>${COMPETENCES.length}</strong><span>compétences</span></div>
+            <div class="stat"><strong>${nbPreuves}</strong><span>preuves</span></div>`;
+    }
+
+    construireTableau();
+    construireFiltres();
+
+    // Un seul écouteur pour tout le tableau (délégation d'événements) :
+    // il n'est ajouté qu'UNE fois, contrairement à avant où chaque ouverture
+    // de la popup ajoutait de nouveaux écouteurs (liens ouverts en double...)
+    tableau.addEventListener("click", (e) => {
+        const bouton = e.target.closest("button.check");
+        if (!bouton) return;
+        const projet = REALISATIONS[bouton.dataset.groupe].projets[bouton.dataset.projet];
+        const competence = COMPETENCES.find(c => c.id === bouton.dataset.competence);
+        ouvrirVisionneuse(projet.preuves[competence.id], projet.nom + " · " + competence.court);
+    });
+
+    /* -----------------------------------------------------
+       5. VISIONNEUSE DE PREUVES (images + PDF)
+       Navigation : flèches, clavier ← →, swipe sur mobile
+       ----------------------------------------------------- */
+    const visionneuse = document.getElementById("visionneuse");
+    const zoneMedia = visionneuse.querySelector(".visionneuse-media");
+    const titreVisionneuse = visionneuse.querySelector(".visionneuse-titre");
+    const contexteVisionneuse = visionneuse.querySelector(".visionneuse-contexte");
+    const compteur = visionneuse.querySelector(".visionneuse-compteur");
+    const miniatures = visionneuse.querySelector(".visionneuse-miniatures");
+    const boutonPrec = visionneuse.querySelector(".visionneuse-prec");
+    const boutonSuiv = visionneuse.querySelector(".visionneuse-suiv");
+
+    let preuvesAffichees = [];
+    let indexActuel = 0;
+
+    const estPdf = (chemin) => chemin.toLowerCase().endsWith(".pdf");
+
+    function ouvrirVisionneuse(preuves, contexte) {
+        preuvesAffichees = preuves;
+        contexteVisionneuse.textContent = contexte;
+
+        // Miniatures cliquables (une par preuve)
+        miniatures.innerHTML = preuves.map((p, i) => `
+            <button type="button" data-index="${i}" aria-label="Preuve ${i + 1} : ${p.titre}">
+                ${estPdf(p.chemin)
+                    ? '<i class="fas fa-file-pdf" aria-hidden="true"></i>'
+                    : `<img src="${encodeURI(p.chemin)}" alt="" loading="lazy">`}
+            </button>`).join("");
+        miniatures.hidden = preuves.length < 2;
+        boutonPrec.hidden = boutonSuiv.hidden = preuves.length < 2;
+
+        afficherPreuve(0);
+        visionneuse.showModal();
+    }
+
+    function afficherPreuve(index) {
+        const total = preuvesAffichees.length;
+        indexActuel = (index + total) % total; // boucle : après la dernière → la première
+        const preuve = preuvesAffichees[indexActuel];
+        const url = encodeURI(preuve.chemin);
+
+        titreVisionneuse.textContent = preuve.titre;
+        compteur.textContent = total > 1 ? `${indexActuel + 1} / ${total}` : "";
+
+        if (estPdf(preuve.chemin)) {
+            zoneMedia.innerHTML = `
+                <iframe src="${url}" title="${preuve.titre}"></iframe>
+                <a class="pdf-link" href="${url}" target="_blank" rel="noopener">
+                    <i class="fas fa-up-right-from-square"></i> Ouvrir le PDF dans un nouvel onglet</a>`;
+        } else {
+            zoneMedia.innerHTML = `
+                <a href="${url}" target="_blank" rel="noopener" title="Voir en taille réelle">
+                    <img src="${url}" alt="${preuve.titre}">
+                </a>`;
+        }
+
+        miniatures.querySelectorAll("button").forEach((b, i) => {
+            b.classList.toggle("actif", i === indexActuel);
+            if (i === indexActuel) b.scrollIntoView({ block: "nearest", inline: "center" });
+        });
+
+        // Précharge l'image suivante pour une navigation instantanée
+        const suivante = preuvesAffichees[(indexActuel + 1) % total];
+        if (suivante && !estPdf(suivante.chemin)) new Image().src = encodeURI(suivante.chemin);
+    }
+
+    boutonPrec.addEventListener("click", () => afficherPreuve(indexActuel - 1));
+    boutonSuiv.addEventListener("click", () => afficherPreuve(indexActuel + 1));
+    miniatures.addEventListener("click", (e) => {
+        const b = e.target.closest("button");
+        if (b) afficherPreuve(Number(b.dataset.index));
+    });
+    visionneuse.querySelector(".close-visionneuse").addEventListener("click", () => visionneuse.close());
+    visionneuse.addEventListener("click", (e) => {
+        if (e.target === visionneuse) visionneuse.close();
+    });
+    visionneuse.addEventListener("close", () => { zoneMedia.innerHTML = ""; });
+
+    visionneuse.addEventListener("keydown", (e) => {
+        if (preuvesAffichees.length < 2) return;
+        if (e.key === "ArrowLeft") afficherPreuve(indexActuel - 1);
+        if (e.key === "ArrowRight") afficherPreuve(indexActuel + 1);
+    });
+
+    // Swipe gauche / droite sur écran tactile
+    let debutX = null;
+    zoneMedia.addEventListener("touchstart", (e) => { debutX = e.touches[0].clientX; }, { passive: true });
+    zoneMedia.addEventListener("touchend", (e) => {
+        if (debutX === null || preuvesAffichees.length < 2) return;
+        const ecart = e.changedTouches[0].clientX - debutX;
+        if (Math.abs(ecart) > 50) afficherPreuve(indexActuel + (ecart < 0 ? 1 : -1));
+        debutX = null;
+    });
+
+    /* -----------------------------------------------------
+       6. FILTRE DES PROJETS (formation / stage 1 / stage 2)
+       ----------------------------------------------------- */
+    const filtresProjets = document.querySelector(".filtres-projets");
+    filtresProjets.addEventListener("click", (e) => {
+        const bouton = e.target.closest(".filtre");
+        if (!bouton) return;
+        filtresProjets.querySelectorAll(".filtre").forEach(b => {
+            b.classList.toggle("actif", b === bouton);
+            b.setAttribute("aria-pressed", b === bouton);
+        });
+        document.querySelectorAll(".groupe-projets").forEach(groupe => {
+            groupe.hidden = bouton.dataset.filtre !== "" && groupe.dataset.categorie !== bouton.dataset.filtre;
+        });
+        majProgression();
+    });
+
+    /* -----------------------------------------------------
+       7. CONTACT : copie de l'email + formulaire
+       ----------------------------------------------------- */
+    const toast = document.querySelector(".toast");
+    let minuteurToast;
+
+    function afficherToast(message) {
+        toast.textContent = message;
+        toast.classList.add("visible");
+        clearTimeout(minuteurToast);
+        minuteurToast = setTimeout(() => toast.classList.remove("visible"), 2500);
+    }
+
+    document.querySelectorAll("[data-copier]").forEach(bouton => {
+        bouton.addEventListener("click", async () => {
+            try {
+                await navigator.clipboard.writeText(bouton.dataset.copier);
+                afficherToast("Adresse email copiée ✓");
+            } catch {
+                afficherToast("Copie impossible, sélectionnez l'adresse manuellement");
+            }
+        });
+    });
+
+    const contactForm = document.getElementById("contact-form");
+    const statutForm = contactForm.querySelector(".form-statut");
+    const boutonEnvoyer = contactForm.querySelector(".submit-button");
+
+    contactForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        boutonEnvoyer.disabled = true;
+        boutonEnvoyer.textContent = "Envoi en cours…";
+        statutForm.className = "form-statut";
+        statutForm.textContent = "";
+
+        try {
+            // FormData récupère automatiquement tous les champs du formulaire
+            const response = await fetch(contactForm.action, {
+                method: "POST",
+                headers: { "Accept": "application/json" },
+                body: new FormData(contactForm)
+            });
+
+            if (!response.ok) throw new Error("Réponse " + response.status);
+
+            statutForm.classList.add("succes");
+            statutForm.textContent = "Merci ! Votre message a bien été envoyé, je vous répondrai rapidement.";
+            contactForm.reset();
+        } catch (error) {
+            console.error("Erreur d'envoi :", error);
+            statutForm.classList.add("erreur");
+            statutForm.textContent = "Une erreur est survenue. Vous pouvez réessayer ou m'écrire directement par email.";
+        } finally {
+            boutonEnvoyer.disabled = false;
+            boutonEnvoyer.innerHTML = '<i class="fas fa-paper-plane"></i> Envoyer';
         }
     });
+
+    /* -----------------------------------------------------
+       8. DÉMARRAGE : si l'URL contient déjà une ancre
+          (ex. lien partagé vers #projets), on ouvre directement
+       ----------------------------------------------------- */
+    suivreAncre();
 });
-
-
-
-

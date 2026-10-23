@@ -6,7 +6,8 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     // Sections disponibles : l'identifiant sert aussi d'ancre dans l'URL (#projets...)
-    const SECTIONS = ["apropos", "projets", "competences", "cv", "contact"];
+    // Une ancre peut aussi viser un élément précis : #projets:projet-cyna
+    const SECTIONS = ["apropos", "projets", "competences", "outils", "veille", "alternance", "interets", "cv", "contact"];
 
     // L'utilisateur a-t-il demandé à réduire les animations (réglage du système) ?
     const animationsReduites = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -126,6 +127,9 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!popup.open) {
             ouvrirMenu(false);
             popup.showModal();
+            // La popup est maintenant affichée : on peut faire défiler la barre d'onglets
+            const ongletActif = popup.querySelector(".popup-onglets a.actif");
+            if (ongletActif) ongletActif.scrollIntoView({ block: "nearest", inline: "nearest" });
         }
         const titre = document.querySelector("#" + id + " h2");
         document.title = (titre ? titre.textContent + " · " : "") + "Portfolio Adrien Cachoux";
@@ -133,13 +137,37 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Lit l'ancre de l'URL et ouvre/ferme la popup en conséquence
     function suivreAncre() {
-        const id = location.hash.slice(1);
+        const ancre = decodeURIComponent(location.hash.slice(1));
+        const [id, cible] = ancre.split(":");
         if (SECTIONS.includes(id)) {
             lancerExploration(true);
             afficherSection(id);
+            if (cible) montrerCible(cible);
+            noterVisite(ancre);
         } else if (popup.open) {
             popup.close();
         }
+    }
+
+    // Fait défiler la popup jusqu'à un élément et le met en surbrillance
+    function montrerCible(idCible) {
+        const element = document.getElementById(idCible);
+        if (!element) return;
+
+        // Dans les projets : on applique le filtre du groupe visé (ou "Tous" pour un projet précis)
+        if (element.closest("#projets")) {
+            const filtre = element.classList.contains("groupe-projets") ? element.dataset.categorie : "";
+            const bouton = document.querySelector(`.filtres-projets .filtre[data-filtre="${filtre}"]`);
+            if (bouton) bouton.click();
+        }
+
+        // Petit délai : on laisse la section s'afficher avant de défiler
+        setTimeout(() => {
+            element.scrollIntoView({ behavior: animationsReduites ? "auto" : "smooth", block: "start" });
+            element.classList.remove("surbrillance");
+            void element.offsetWidth; // relance l'animation si elle a déjà eu lieu
+            element.classList.add("surbrillance");
+        }, 400);
     }
 
     window.addEventListener("hashchange", suivreAncre);
@@ -385,14 +413,15 @@ document.addEventListener("DOMContentLoaded", function () {
     /* -----------------------------------------------------
        7. CONTACT : copie de l'email + formulaire
        ----------------------------------------------------- */
-    const toast = document.querySelector(".toast");
-    let minuteurToast;
+    const toast = document.querySelector("#popup .toast");
+    const toastCarte = document.querySelector(".toast-carte");
 
-    function afficherToast(message) {
-        toast.textContent = message;
-        toast.classList.add("visible");
-        clearTimeout(minuteurToast);
-        minuteurToast = setTimeout(() => toast.classList.remove("visible"), 2500);
+    // "zone" : la notification à utiliser (celle de la popup par défaut, ou celle de la carte)
+    function afficherToast(message, zone = toast, duree = 2500) {
+        zone.textContent = message;
+        zone.classList.add("visible");
+        clearTimeout(zone.minuteur);
+        zone.minuteur = setTimeout(() => zone.classList.remove("visible"), duree);
     }
 
     document.querySelectorAll("[data-copier]").forEach(bouton => {
@@ -442,7 +471,137 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     /* -----------------------------------------------------
-       8. DÉMARRAGE : si l'URL contient déjà une ancre
+       8. OUTILS (Moria) et ALTERNANCE (Erebor)
+       ----------------------------------------------------- */
+    // Cartes des outils, générées à partir de OUTILS (donnees.js)
+    document.querySelector(".forges").innerHTML = OUTILS.map(groupe => `
+        <h3>${groupe.categorie}</h3>
+        <div class="grille-outils">
+            ${groupe.liste.map(outil => `
+                <article class="outil">
+                    <i class="${outil.icone}" aria-hidden="true"></i>
+                    <h4>${outil.nom}</h4>
+                    <p>${outil.projets.length
+                        ? "Utilisé dans : " + outil.projets.join(", ")
+                        : "Pratiqué en formation"}</p>
+                </article>`).join("")}
+        </div>`).join("");
+
+    // Nombre de mois écoulés depuis une date (début de l'alternance)
+    document.querySelectorAll("[data-depuis]").forEach(element => {
+        const debut = new Date(element.dataset.depuis);
+        const maintenant = new Date();
+        let mois = (maintenant.getFullYear() - debut.getFullYear()) * 12 + (maintenant.getMonth() - debut.getMonth());
+        if (maintenant.getDate() < debut.getDate()) mois--; // mois pas encore terminé
+        element.textContent = Math.max(mois, 0);
+    });
+
+    /* -----------------------------------------------------
+       9. QUÊTE : compteur des lieux explorés
+       La progression est gardée dans le navigateur (localStorage)
+       ----------------------------------------------------- */
+    const LIEUX = [...document.querySelectorAll(".carte .div_comp")].map(c => c.getAttribute("href").slice(1));
+    const texteQuete = document.querySelector(".quete-texte");
+    const blocQuete = document.querySelector(".quete");
+    let lieuxVisites = [];
+
+    // localStorage peut être bloqué (navigation privée...) : on entoure de try/catch
+    try {
+        lieuxVisites = JSON.parse(localStorage.getItem("lieuxVisites")) || [];
+    } catch {
+        lieuxVisites = [];
+    }
+
+    function majQuete() {
+        const nb = LIEUX.filter(lieu => lieuxVisites.includes(lieu)).length;
+        texteQuete.textContent = `Lieux explorés : ${nb} / ${LIEUX.length}`;
+        blocQuete.classList.toggle("terminee", nb === LIEUX.length);
+        // Petite coche sur les cercles déjà visités
+        document.querySelectorAll(".carte .div_comp").forEach(cercle => {
+            cercle.classList.toggle("visite", lieuxVisites.includes(cercle.getAttribute("href").slice(1)));
+        });
+        const restants = LIEUX.filter(lieu => !lieuxVisites.includes(lieu))
+            .map(lieu => document.querySelector(`.carte .div_comp[href="#${lieu}"] .lieu`).textContent);
+        blocQuete.title = restants.length ? "Encore à explorer : " + restants.join(", ") : "Quête terminée !";
+    }
+
+    function noterVisite(ancre) {
+        if (!LIEUX.includes(ancre) || lieuxVisites.includes(ancre)) return;
+        lieuxVisites.push(ancre);
+        try {
+            localStorage.setItem("lieuxVisites", JSON.stringify(lieuxVisites));
+        } catch { /* pas de sauvegarde possible : la quête marche quand même pour cette visite */ }
+        majQuete();
+        if (lieuxVisites.length >= LIEUX.length) {
+            // Message affiché quand on revient sur la carte
+            popup.addEventListener("close", () => {
+                afficherToast("Bravo ! Vous avez exploré toute la Terre du Milieu. Le Mont du Destin vous attend…", toastCarte, 6000);
+            }, { once: true });
+        }
+    }
+
+    majQuete();
+
+    /* -----------------------------------------------------
+       10. AMBIANCE : l'Œil qui suit la souris, les lucioles
+           de la Lothlórien et le Mont du Destin
+       ----------------------------------------------------- */
+    // L'Œil (icône du menu) regarde vers le pointeur de la souris
+    const oeil = document.querySelector(".burger-icon img");
+    if (!animationsReduites && window.matchMedia("(hover: hover)").matches) {
+        let attente = false;
+        document.addEventListener("pointermove", (e) => {
+            if (attente) return;
+            attente = true;
+            requestAnimationFrame(() => {
+                const zone = oeil.getBoundingClientRect();
+                const angle = Math.atan2(e.clientY - (zone.top + zone.height / 2), e.clientX - (zone.left + zone.width / 2));
+                // Déplacement de 6 px maximum dans la direction du pointeur
+                oeil.style.translate = `${Math.cos(angle) * 6}px ${Math.sin(angle) * 6}px`;
+                attente = false;
+            });
+        });
+    }
+
+    // Lucioles : petits points lumineux placés au hasard autour de la Lothlórien
+    const lucioles = document.querySelector(".lucioles");
+    for (let i = 0; i < 14; i++) {
+        const luciole = document.createElement("span");
+        luciole.style.left = (Math.random() * 100) + "%";
+        luciole.style.top = (Math.random() * 100) + "%";
+        luciole.style.animationDelay = (Math.random() * 6) + "s";
+        luciole.style.animationDuration = (4 + Math.random() * 4) + "s";
+        lucioles.appendChild(luciole);
+    }
+
+    // Mont du Destin : on y jette l'Anneau !
+    const montDestin = document.querySelector(".mont-destin");
+    montDestin.addEventListener("click", () => {
+        if (montDestin.classList.contains("en-cours")) return;
+        montDestin.classList.add("en-cours");
+
+        const anneau = document.createElement("img");
+        anneau.src = "image/anneau-400.png";
+        anneau.alt = "";
+        anneau.className = "anneau-chute";
+        montDestin.appendChild(anneau);
+
+        const quete = lieuxVisites.length >= LIEUX.length;
+        setTimeout(() => {
+            montDestin.classList.add("eruption");
+            afficherToast(quete
+                ? "L'Anneau est détruit ! Merci d'avoir exploré tout mon portfolio 🔥"
+                : "L'Anneau est détruit ! Il reste encore des lieux à explorer sur la carte…", toastCarte, 5000);
+        }, animationsReduites ? 0 : 1100);
+
+        setTimeout(() => {
+            anneau.remove();
+            montDestin.classList.remove("en-cours", "eruption");
+        }, animationsReduites ? 300 : 2600);
+    });
+
+    /* -----------------------------------------------------
+       11. DÉMARRAGE : si l'URL contient déjà une ancre
           (ex. lien partagé vers #projets), on ouvre directement
        ----------------------------------------------------- */
     suivreAncre();

@@ -191,3 +191,32 @@ const REALISATIONS = [
         ]
     }
 ];
+
+// Outils et technologies (section "Les forges de la Moria").
+// "projets" : où je les ai utilisés (liste vide = pratiqué en cours).
+const OUTILS = [
+    {
+        categorie: "Langages",
+        liste: [
+            { nom: "HTML / CSS", icone: "fab fa-html5", projets: ["Site M2L", "Site de FAQ", "CazaFamilia", "Portfolio"] },
+            { nom: "JavaScript", icone: "fab fa-js", projets: ["Site M2L", "CazaFamilia", "Workflows Gaches Chimie", "Cyna", "Portfolio"] },
+            { nom: "PHP", icone: "fab fa-php", projets: ["Site de FAQ", "CazaFamilia", "Cyna"] },
+            { nom: "SQL / MySQL", icone: "fas fa-database", projets: ["Site de FAQ", "CazaFamilia", "Tableaux Mobix", "Workflows Gaches Chimie", "Cyna"] },
+            { nom: "Java", icone: "fab fa-java", projets: ["CazaFamilia (client lourd)", "Cyna (application d'administration Swing)"] },
+            { nom: "Python", icone: "fab fa-python", projets: [] },
+            { nom: "C", icone: "fab fa-cuttlefish", projets: [] }
+        ]
+    },
+    {
+        categorie: "Outils et plateformes",
+        liste: [
+            { nom: "Git / GitHub", icone: "fab fa-github", projets: ["Site de FAQ", "CazaFamilia", "Workflows Gaches Chimie", "Cyna", "Portfolio"] },
+            { nom: "Docker", icone: "fab fa-docker", projets: ["Cyna"] },
+            { nom: "Stripe", icone: "fab fa-stripe-s", projets: ["Cyna (paiement en ligne)"] },
+            { nom: "Zoho Analytics", icone: "fas fa-chart-column", projets: ["Les 5 tableaux de bord Mobix"] },
+            { nom: "GLPI", icone: "fas fa-server", projets: ["AP GLPI (gestion de parc)"] },
+            { nom: "Trello", icone: "fab fa-trello", projets: ["Site de FAQ", "CazaFamilia"] },
+            { nom: "Google Drive", icone: "fab fa-google-drive", projets: ["Site M2L"] }
+        ]
+    }
+];

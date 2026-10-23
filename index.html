@@ -133,13 +133,13 @@
                     <span class="texte_cercle">Projets</span>
                     <span class="lieu">Fondcombe</span>
                 </a>
-                <a class="div_comp" id="rond3" href="#competences" style="--x: 58%; --y: 48%; --i: 2">
+                <a class="div_comp" id="rond3" href="#competences" style="--x: 60%; --y: 49%; --i: 2">
                     <img class="cercle" src="image/anneau-400.png" alt="">
                     <img class="fond_cercle" src="image/rond_noir.png" alt="">
                     <span class="texte_cercle">Compétences</span>
                     <span class="lieu">Lothlórien</span>
                 </a>
-                <a class="div_comp" id="rond4" href="#cv" style="--x: 53%; --y: 67%; --i: 3">
+                <a class="div_comp" id="rond4" href="#cv" style="--x: 56%; --y: 69%; --i: 3">
                     <img class="cercle" src="image/anneau-400.png" alt="">
                     <img class="fond_cercle" src="image/rond_noir.png" alt="">
                     <span class="texte_cercle">CV</span>
@@ -151,11 +151,104 @@
                     <span class="texte_cercle">Contact</span>
                     <span class="lieu">Minas Tirith</span>
                 </a>
+
+                <!-- Lieux secondaires : cercles plus petits -->
+                <a class="div_comp petit" id="rond-cyna" href="#projets:projet-cyna" style="--x: 48%; --y: 70%; --i: 5">
+                    <img class="cercle" src="image/anneau-400.png" alt="">
+                    <img class="fond_cercle" src="image/rond_noir.png" alt="">
+                    <span class="texte_cercle">Cyna</span>
+                    <span class="lieu">Gouffre de Helm</span>
+                </a>
+                <a class="div_comp petit" id="rond-alternance" href="#alternance" style="--x: 72%; --y: 18%; --i: 6">
+                    <img class="cercle" src="image/anneau-400.png" alt="">
+                    <img class="fond_cercle" src="image/rond_noir.png" alt="">
+                    <span class="texte_cercle">Alternance</span>
+                    <span class="lieu">Erebor</span>
+                </a>
+                <a class="div_comp petit" id="rond-veille" href="#veille" style="--x: 50%; --y: 58.5%; --i: 7">
+                    <img class="cercle" src="image/anneau-400.png" alt="">
+                    <img class="fond_cercle" src="image/rond_noir.png" alt="">
+                    <span class="texte_cercle">Veille</span>
+                    <span class="lieu">Isengard</span>
+                </a>
+                <a class="div_comp petit" id="rond-interets" href="#interets" style="--x: 45%; --y: 38.5%; --i: 9">
+                    <img class="cercle" src="image/anneau-400.png" alt="">
+                    <img class="fond_cercle" src="image/rond_noir.png" alt="">
+                    <span class="texte_cercle">Intérêts</span>
+                    <span class="lieu">Bree</span>
+                </a>
+                <a class="div_comp petit" id="rond-outils" href="#outils" style="--x: 51.5%; --y: 46%; --i: 8">
+                    <img class="cercle" src="image/anneau-400.png" alt="">
+                    <img class="fond_cercle" src="image/rond_noir.png" alt="">
+                    <span class="texte_cercle">Outils</span>
+                    <span class="lieu">Moria</span>
+                </a>
+
+                <!-- Chemin du parcours : le voyage de la Communauté, de la Comté à Minas Tirith
+                     (coordonnées en % de la carte, comme les cercles) -->
+                <svg class="chemin" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                    <path d="M33.5 37 L38 33 L43 30.5 L48 27 L53 29 L56.5 39 L60 49 L62.5 61 L56 69 L60.5 76.5 L65 78" />
+                </svg>
+                <a class="etape" href="#apropos:parcours-scolaire" style="--x: 33.5%; --y: 37%">
+                    <span class="etape-num">1</span>
+                    <span class="etape-info"><strong>2018 - 2021</strong>Bac général scientifique</span>
+                </a>
+                <a class="etape" href="#apropos:parcours-scolaire" style="--x: 43%; --y: 30.5%">
+                    <span class="etape-num">2</span>
+                    <span class="etape-info"><strong>2021 - 2023</strong>Licence MIASHS</span>
+                </a>
+                <a class="etape" href="#apropos:parcours-scolaire" style="--x: 48%; --y: 27%">
+                    <span class="etape-num">3</span>
+                    <span class="etape-info"><strong>2023 - 2025</strong>BTS SIO option SLAM</span>
+                </a>
+                <a class="etape" href="#apropos:parcours-pro" style="--x: 56.5%; --y: 39%">
+                    <span class="etape-num">4</span>
+                    <span class="etape-info"><strong>2024 - 2025</strong>Stages Mobix et Gaches Chimie</span>
+                </a>
+                <a class="etape" href="#apropos:parcours-scolaire" style="--x: 62.5%; --y: 61%">
+                    <span class="etape-num">5</span>
+                    <span class="etape-info"><strong>2025 - 2026</strong>Bachelor Systèmes d'information (obtenu)</span>
+                </a>
+                <a class="etape" href="#apropos:parcours-scolaire" style="--x: 60.5%; --y: 76.5%">
+                    <span class="etape-num">6</span>
+                    <span class="etape-info"><strong>2026 - aujourd'hui</strong>Master Expert en SI + alternance</span>
+                </a>
+
+                <!-- Épingles : accès direct à un projet -->
+                <a class="epingle" href="#projets:projet-m2l" style="--x: 49%; --y: 21%">
+                    <i class="fas fa-location-dot" aria-hidden="true"></i><span class="epingle-nom">Site M2L</span>
+                </a>
+                <a class="epingle" href="#projets:projet-faq" style="--x: 57.5%; --y: 20.5%">
+                    <i class="fas fa-location-dot" aria-hidden="true"></i><span class="epingle-nom">Site de FAQ</span>
+                </a>
+                <a class="epingle" href="#projets:projet-caza" style="--x: 47%; --y: 46%">
+                    <i class="fas fa-location-dot" aria-hidden="true"></i><span class="epingle-nom">CazaFamilia</span>
+                </a>
+                <a class="epingle" href="#projets:groupe-stage1" style="--x: 66%; --y: 38%">
+                    <i class="fas fa-location-dot" aria-hidden="true"></i><span class="epingle-nom">Stage Mobix (5 projets)</span>
+                </a>
+                <a class="epingle" href="#projets:groupe-stage2" style="--x: 66%; --y: 58%">
+                    <i class="fas fa-location-dot" aria-hidden="true"></i><span class="epingle-nom">Stage Gaches Chimie</span>
+                </a>
+
+                <!-- Ambiance : brume sur le Mordor, lucioles de la Lothlórien (ajoutées par index.js) -->
+                <div class="brume" aria-hidden="true"></div>
+                <div class="lucioles" aria-hidden="true"></div>
+
+                <!-- Easter egg : le Mont du Destin -->
+                <button type="button" class="mont-destin" style="--x: 76%; --y: 71%" aria-label="Mont du Destin : jeter l'Anneau">
+                    <span class="lieu">Mont du Destin</span>
+                </button>
             </div>
         </nav>
         <!-- Indication affichée sur mobile quand la carte dépasse de l'écran -->
         <p class="indice-glisser" aria-hidden="true"><i class="fas fa-hand-pointer"></i> Faites glisser la carte</p>
     </main>
+
+    <!-- Quête : compteur des lieux explorés (mis à jour par index.js) -->
+    <p class="quete" aria-live="polite"><i class="fas fa-compass" aria-hidden="true"></i> <span class="quete-texte"></span></p>
+    <!-- Notification affichée sur la carte (Mont du Destin, fin de la quête) -->
+    <div class="toast toast-carte" role="status" aria-live="polite"></div>
 
     <!-- Barre de navigation en bas de l'écran : affichée uniquement sur téléphone -->
     <nav class="barre-mobile" aria-label="Navigation rapide">
@@ -175,6 +268,10 @@
                 <a href="#apropos" data-section="apropos"><i class="fas fa-user" aria-hidden="true"></i><span>À propos</span></a>
                 <a href="#projets" data-section="projets"><i class="fas fa-code" aria-hidden="true"></i><span>Projets</span></a>
                 <a href="#competences" data-section="competences"><i class="fas fa-table-cells" aria-hidden="true"></i><span>Compétences</span></a>
+                <a href="#outils" data-section="outils"><i class="fas fa-hammer" aria-hidden="true"></i><span>Outils</span></a>
+                <a href="#veille" data-section="veille"><i class="fas fa-eye" aria-hidden="true"></i><span>Veille</span></a>
+                <a href="#alternance" data-section="alternance"><i class="fas fa-building" aria-hidden="true"></i><span>Alternance</span></a>
+                <a href="#interets" data-section="interets"><i class="fas fa-heart" aria-hidden="true"></i><span>Intérêts</span></a>
                 <a href="#cv" data-section="cv"><i class="fas fa-file-lines" aria-hidden="true"></i><span>CV</span></a>
                 <a href="#contact" data-section="contact"><i class="fas fa-envelope" aria-hidden="true"></i><span>Contact</span></a>
             </nav>
@@ -213,7 +310,7 @@
                     </ul>
                 </div>
 
-                <div class="about-section">
+                <div class="about-section" id="parcours-scolaire">
                     <h3>Parcours scolaire</h3>
                     <ol class="timeline">
                         <li class="timeline-item">
@@ -261,7 +358,7 @@
                     </ol>
                 </div>
 
-                <div class="about-section">
+                <div class="about-section" id="parcours-pro">
                     <h3>Parcours professionnel</h3>
                     <ol class="timeline">
                         <li class="timeline-item">
@@ -322,10 +419,10 @@
                     <button type="button" class="filtre" data-filtre="stage2" aria-pressed="false">Stage SIO2 · Gaches Chimie</button>
                 </div>
 
-                <div class="groupe-projets" data-categorie="bachelor">
+                <div class="groupe-projets" id="groupe-bachelor" data-categorie="bachelor">
                     <h3>Projet fil rouge du Bachelor Systèmes d'information</h3>
                     <div class="grille-projets">
-                        <article class="projet projet-vedette">
+                        <article class="projet projet-vedette" id="projet-cyna">
                             <h4>Cyna - plateforme e-commerce de solutions de cybersécurité SaaS</h4>
                             <p>Projet fil rouge de l'année, réalisé en équipe de trois. Cyna vend des solutions de
                                 sécurité (SOC, EDR, XDR) aux entreprises : nous avons conçu sa plateforme de vente en ligne,
@@ -346,10 +443,10 @@
                     </div>
                 </div>
 
-                <div class="groupe-projets" data-categorie="formation">
+                <div class="groupe-projets" id="groupe-formation" data-categorie="formation">
                     <h3>Projets effectués en cours de BTS SIO</h3>
                     <div class="grille-projets">
-                        <article class="projet">
+                        <article class="projet" id="projet-m2l">
                             <h4>Site internet sur le rugby à 15 (M2L)</h4>
                             <p>Conception et développement d'un site web informatif dédié au rugby à 15. Les utilisateurs
                                 peuvent consulter les actualités du club, le calendrier des matchs et les statistiques
@@ -357,7 +454,7 @@
                             <ul class="tags"><li>HTML5</li><li>CSS3</li><li>JavaScript</li></ul>
                         </article>
 
-                        <article class="projet">
+                        <article class="projet" id="projet-faq">
                             <h4>Site internet de FAQ</h4>
                             <p>Plateforme de questions-réponses sur les différentes ligues sportives, avec un système
                                 d'authentification (création de compte, contenu personnalisé) et un filtrage des
@@ -367,7 +464,7 @@
                                 Voir le site <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
                         </article>
 
-                        <article class="projet">
+                        <article class="projet" id="projet-caza">
                             <h4>CazaFamilia - gestion d'un restaurant italien</h4>
                             <p><strong>Site web :</strong> plateforme responsive permettant de découvrir le menu, de
                                 réserver et de commander en ligne, avec authentification sécurisée.</p>
@@ -380,7 +477,7 @@
                     </div>
                 </div>
 
-                <div class="groupe-projets" data-categorie="stage1">
+                <div class="groupe-projets" id="groupe-stage1" data-categorie="stage1">
                     <h3>Projets effectués en stage de BTS SIO1 (Mobix)</h3>
                     <div class="grille-projets">
                         <article class="projet">
@@ -422,7 +519,7 @@
                     </div>
                 </div>
 
-                <div class="groupe-projets" data-categorie="stage2">
+                <div class="groupe-projets" id="groupe-stage2" data-categorie="stage2">
                     <h3>Projets effectués en stage de BTS SIO2 (Gaches Chimie)</h3>
                     <div class="grille-projets">
                         <article class="projet">
@@ -458,8 +555,21 @@
                     <table class="skills-table"></table>
                 </div>
 
-                <div class="veille-techno-section">
-                    <h2>Veille technologique</h2>
+            </section>
+
+            <!-- ============ OUTILS (Moria) ============ -->
+            <section id="outils" class="popup-section" hidden>
+                <h2>Outils et technologies</h2>
+                <p class="aide">Les forges de la Moria : les langages et outils que j'utilise, et les projets où je les ai mis en œuvre.</p>
+                <!-- Rempli automatiquement par index.js à partir de OUTILS (donnees.js) -->
+                <div class="forges"></div>
+            </section>
+
+            <!-- ============ VEILLE (Isengard) ============ -->
+            <section id="veille" class="popup-section" hidden>
+                <h2>Veille technologique</h2>
+                <p class="aide">Comme le palantír d'Orthanc, ma veille me permet de garder un œil sur ce qui se passe au loin.
+                    Voici les sources que je suis.</p>
                     <ul class="veille-list">
                         <li>
                             <span class="veille-icn"><i class="fa-solid fa-globe" aria-hidden="true"></i></span>
@@ -484,7 +594,52 @@
                                 pour poser mes questions et voir comment d'autres résolvent les mêmes problèmes.</span>
                         </li>
                     </ul>
+            </section>
+
+
+            <!-- ============ CENTRES D'INTÉRÊT (Bree) ============ -->
+            <section id="interets" class="popup-section" hidden>
+                <h2>Centres d'intérêt</h2>
+                <p class="aide">À l'auberge du Poney Fringant, à Bree, on se retrouve entre amis pour parler de tout.
+                    Curieux de nature, j'aime découvrir constamment de nouvelles choses et tout tester dans ma vie.</p>
+                <div class="grille-outils grille-interets">
+                    <article class="outil"><i class="fas fa-music" aria-hidden="true"></i><h4>Musique</h4></article>
+                    <article class="outil"><i class="fas fa-gamepad" aria-hidden="true"></i><h4>Jeux vidéo</h4></article>
+                    <article class="outil"><i class="fas fa-torii-gate" aria-hidden="true"></i><h4>Animés</h4></article>
+                    <article class="outil"><i class="fas fa-film" aria-hidden="true"></i><h4>Films et séries</h4></article>
+                    <article class="outil"><i class="fas fa-mountain-sun" aria-hidden="true"></i><h4>La montagne et les paysages</h4></article>
+                    <article class="outil"><i class="fas fa-user-group" aria-hidden="true"></i><h4>Relations amicales</h4></article>
+                    <article class="outil"><i class="fas fa-compass" aria-hidden="true"></i><h4>Découvrir et tout tester</h4></article>
                 </div>
+            </section>
+            <!-- ============ ALTERNANCE (Erebor) ============ -->
+            <section id="alternance" class="popup-section" hidden>
+                <h2>Alternance</h2>
+                <div class="carte-alternance">
+                    <div class="alternance-icone"><i class="fas fa-building" aria-hidden="true"></i></div>
+                    <div>
+                        <h3>Scutum France</h3>
+                        <p class="alternance-dates">Depuis le 8 septembre 2025</p>
+                        <p>Alternance commencée pendant le Bachelor Systèmes d'information et poursuivie pendant
+                            tout le Master Expert en systèmes d'information à l'Institut Limayrac.</p>
+                    </div>
+                </div>
+                <div class="stats-competences">
+                    <!-- data-depuis : date de début, le nombre de mois est calculé par index.js -->
+                    <div class="stat"><strong data-depuis="2025-09-08">–</strong><span>mois en entreprise</span></div>
+                    <div class="stat"><strong>2</strong><span>diplômes préparés en alternance</span></div>
+                </div>
+                <div class="projet-professionnel">
+                    <h3>Ce que m'apporte l'alternance</h3>
+                    <ul>
+                        <li>acquérir une expérience professionnelle et confronter mes connaissances théoriques
+                            aux réalités du terrain ;</li>
+                        <li>participer à la construction et au développement de nouveaux projets, dans un monde
+                            de l'entreprise toujours en mouvement.</li>
+                    </ul>
+                </div>
+                <!-- Pour présenter des missions chez Scutum France, ajouter ici des
+                     <article class="projet"> comme dans la section Projets -->
             </section>
 
             <!-- ============ CV ============ -->
